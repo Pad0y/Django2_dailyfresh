@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.core.mail import send_mail
 from django.urls import reverse
 from django.views.generic import View
 from django.http import HttpResponse
@@ -7,6 +6,7 @@ from django.conf import settings
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
 from user.models import User
+from celery_tasks.tasks import send_register_active_email
 import re
 
 
@@ -101,16 +101,8 @@ class RegisterView(View):
         info = {'confirm': user.id}
         token = serializer.dumps(info).decode('utf8')
 
-        # 发送邮件
-        subject = '天天生鲜欢迎信息'
-        message = ''
-        html_message = '<h1>%s, 欢迎成为天天生鲜注册会员<h1>' \
-                  '请点击下面链接激活账户<br/>' \
-                  '<a href="http://127.0.0.1:8000/user/active/%s">' \
-                  'http://127.0.0.1:8000/user/active/%s</a>' % (username, token, token)
-        sender = settings.EMAIL_FROM
-        receiver = [email]
-        send_mail(subject, message=message, from_email=sender, recipient_list=receiver, html_message=html_message)
+        # 异步发送邮件
+        send_register_active_email.delay(email, username, token)
         # 返回应答,跳转到index
         return redirect(reverse('goods:index'))
 
