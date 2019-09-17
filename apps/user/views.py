@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.views.generic import View
 from django.http import HttpResponse
 from django.conf import settings
+from django.contrib.auth import authenticate, login
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
 from user.models import User
@@ -132,4 +133,30 @@ class ActiveView(View):
 # /user/login
 class LoginView(View):
     def get(self, request):
+        """显示登录页面"""
         return render(request, 'login.html')
+
+    def post(self, request):
+        """登录校验"""
+
+        # 接收数据
+        username = request.POST.get('username')
+        password = request.POST.get('pwd')
+
+        # 校验数据
+        if not all([username, password]):
+            return render(request, 'login.html', {'errmsg': '数据不完整'})
+
+        # 业务处理
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                # 记录登陆状态 session
+                login(request, user)
+                return redirect(reverse('goods:index'))
+
+            else:
+                return render(request, 'login.html', {'errmsg': '账户未激活'})
+
+        else:
+            return render(request, 'login.html', {'errmsg': '用户名或密码错误'})

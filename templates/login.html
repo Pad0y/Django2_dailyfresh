@@ -22,13 +22,14 @@
 					<a href="#">立即注册</a>
 				</div>
 				<div class="form_input">
-					<form>
+					<form method="post">
+                        {% csrf_token %}
 						<input type="text" name="username" class="name_input" placeholder="请输入用户名">
 						<div class="user_error">输入错误</div>
 						<input type="password" name="pwd" class="pass_input" placeholder="请输入密码">
 						<div class="pwd_error">输入错误</div>
 						<div class="more_input clearfix">
-							<input type="checkbox" name="">
+							<input type="checkbox" name="remember">
 							<label>记住用户名</label>
 							<a href="#">忘记密码</a>
 						</div>
@@ -38,7 +39,7 @@
 			</div>
 		</div>
 	</div>
-
+    {{ errmsg }}
 	<div class="footer no-mp">
 		<div class="foot_link">
 			<a href="#">关于我们</a>
@@ -49,7 +50,7 @@
 			<span>|</span>
 			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2019 漳州东越人力资源有限有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2019 XXXX有限公司 All Rights Reserved</p>
 		<p>电话：0596-****888    闽ICP备*******6号</p>
 	</div>
 	
