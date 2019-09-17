@@ -120,6 +120,7 @@ USE_L10N = True
 USE_TZ = True
 
 # the model class of Django authentication system
+
 AUTH_USER_MODEL = 'user.User'
 
 # Static files (CSS, JavaScript, Images)
@@ -138,3 +139,13 @@ TINYMCE_DEFAULT_CONFIG = {
     'width': 600,
     'height': 400,
 }
+
+# QQ Email for django config
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '1148364963@qq.com'
+EMAIL_HOST_PASSWORD = 'vxpabesgntcxjhed'  # 授权码
+# EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
+EMAIL_FROM = '天天生鲜<1148364963@qq.com>'
+
