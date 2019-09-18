@@ -141,11 +141,29 @@ TINYMCE_DEFAULT_CONFIG = {
 }
 
 # QQ Email for django config
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = '1148364963@qq.com'
 EMAIL_HOST_PASSWORD = 'vxpabesgntcxjhed'  # 授权码
 # EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
-EMAIL_FROM = '天天生鲜<1148364963@qq.com>'
+EMAIL_FROM = '天天生鲜<1148364963@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
+
+# django-redis cache configuration
+# https://django-redis-chs.readthedocs.io/zh_CN/latest/
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
+
+# The configuration of the session
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 
