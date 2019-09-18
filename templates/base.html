@@ -17,14 +17,17 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
-				<div class="login_info fl">
-					欢迎您：<em>张 山</em>
+                {% if user.is_authenticated %}
+				<div class="login_btn fl">
+					欢迎您：<em>{{user.username}}</em>
 				</div>
+                {% else %}
 				<div class="login_btn fl">
 					<a href="login.html">登录</a>
 					<span>|</span>
 					<a href="register.html">注册</a>
 				</div>
+                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
 					<a href="user_center_info.html">用户中心</a>

@@ -141,6 +141,7 @@ class UserInfoView(LoginRequiredMixin, View):
     """用户中心-信息页"""
 
     def get(self, request):
+        # django会把request.user传给模板
         return render(request, 'user_center_info.html', {'page': 'user'})
 
 
