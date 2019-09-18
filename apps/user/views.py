@@ -137,7 +137,7 @@ class UserInfoView(View):
     """用户中心-信息页"""
 
     def get(self, request):
-        return render(request, 'user_center_info.html')
+        return render(request, 'user_center_info.html', {'page': 'user'})
 
 
 # /user/order
@@ -145,7 +145,7 @@ class UserOrderView(View):
     """用户中心-订单页"""
 
     def get(self, request):
-        return render(request, 'user_center_order.html')
+        return render(request, 'user_center_order.html', {'page': 'order'})
 
 
 # /user/address
@@ -153,4 +153,4 @@ class AddressView(View):
     """用户中心-地址页"""
 
     def get(self, request):
-        return render(request, 'user_center_site.html')
+        return render(request, 'user_center_site.html', {'page': 'address'})
