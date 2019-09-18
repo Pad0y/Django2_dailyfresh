@@ -184,3 +184,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# custom
+README1.md

@@ -1,17 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+{% extends 'base.html' %}
 {% load staticfiles %}
-<head>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>天天生鲜-登录</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-</head>
-<body>
-	<div class="login_top clearfix">
+{% block title %}天天生鲜-登录{% endblock %}
+{% block header_con %}{% endblock %}
+{% block search_bar %}{% endblock %}
+{% block body %}
+    <div class="login_top clearfix">
 		<a href="index.html" class="login_logo"><img src="{% static 'images/logo02.png' %}"></a>
 	</div>
-
 	<div class="login_form_bg">
 		<div class="login_form_wrap clearfix">
 			<div class="login_banner fl"></div>
@@ -40,19 +35,5 @@
 		</div>
 	</div>
     {{ errmsg }}
-	<div class="footer no-mp">
-		<div class="foot_link">
-			<a href="#">关于我们</a>
-			<span>|</span>
-			<a href="#">联系我们</a>
-			<span>|</span>
-			<a href="#">招聘人才</a>
-			<span>|</span>
-			<a href="#">友情链接</a>		
-		</div>
-		<p>CopyRight © 2019 XXXX有限公司 All Rights Reserved</p>
-		<p>电话：0596-****888    闽ICP备*******6号</p>
-	</div>
-	
-</body>
-</html>
+{% endblock %}
+
