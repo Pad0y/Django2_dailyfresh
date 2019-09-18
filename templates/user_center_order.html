@@ -1,4 +1,5 @@
 {% extends 'base_user_center.html' %}
+{% load staticfiles %}
 {% block right_content %}
     <div class="right_content clearfix">
 				<h3 class="common_title2">全部订单</h3>
@@ -13,13 +14,13 @@
 						<tr>
 							<td width="55%">
 								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="images/goods02.jpg"></li>
+									<li class="col01"><img src="{% static 'images/goods02.jpg' %}"></li>
 									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
 									<li class="col03">1</li>
 									<li class="col04">11.80元</li>
 								</ul>
 								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="images/goods02.jpg"></li>
+									<li class="col01"><img src="{% static 'images/goods02.jpg' %}"></li>
 									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
 									<li class="col03">1</li>
 									<li class="col04">11.80元</li>
@@ -42,13 +43,13 @@
 						<tr>
 							<td width="55%">
 								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="images/goods02.jpg"></li>
+									<li class="col01"><img src="{% static 'images/goods02.jpg' %}"></li>
 									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
 									<li class="col03">1</li>
 									<li class="col04">11.80元</li>
 								</ul>
 								<ul class="order_goods_list clearfix">
-									<li class="col01"><img src="images/goods02.jpg"></li>
+									<li class="col01"><img src="{% static 'images/goods02.jpg' %}"></li>
 									<li class="col02">嘎啦苹果嘎啦苹果<em>11.80元/500g</em></li>
 									<li class="col03">1</li>
 									<li class="col04">11.80元</li>
