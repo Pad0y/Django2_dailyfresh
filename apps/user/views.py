@@ -8,6 +8,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
 from user.models import User
 from celery_tasks.tasks import send_register_active_email
+from utils.mixin import LoginRequiredMixin
 import re
 
 
@@ -116,7 +117,10 @@ class LoginView(View):
             if user.is_active:
                 # 记录登陆状态 session
                 login(request, user)
-                response = redirect(reverse('goods:index'))  # HttpResponseRedirect
+
+                # 获取登陆后要跳转的地址, 默认跳转首页
+                next_url = request.GET.get('next', reverse('goods:index'))
+                response = redirect(next_url)  # HttpResponseRedirect
 
                 # 判断是否记住用户名
                 remember = request.POST.get('remember')
@@ -133,7 +137,7 @@ class LoginView(View):
 
 
 # /user
-class UserInfoView(View):
+class UserInfoView(LoginRequiredMixin, View):
     """用户中心-信息页"""
 
     def get(self, request):
@@ -141,7 +145,7 @@ class UserInfoView(View):
 
 
 # /user/order
-class UserOrderView(View):
+class UserOrderView(LoginRequiredMixin, View):
     """用户中心-订单页"""
 
     def get(self, request):
@@ -149,7 +153,7 @@ class UserOrderView(View):
 
 
 # /user/address
-class AddressView(View):
+class AddressView(LoginRequiredMixin, View):
     """用户中心-地址页"""
 
     def get(self, request):
