@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
-from user.models import User
+from user.models import User, Address
 from celery_tasks.tasks import send_register_active_email
 from utils.mixin import LoginRequiredMixin
 import re
@@ -151,6 +151,9 @@ class UserInfoView(LoginRequiredMixin, View):
 
     def get(self, request):
         # django会把request.user传给模板
+
+        # 获取用户个人信息
+        # 获取用户浏览历史
         return render(request, 'user_center_info.html', {'page': 'user'})
 
 
@@ -159,6 +162,7 @@ class UserOrderView(LoginRequiredMixin, View):
     """用户中心-订单页"""
 
     def get(self, request):
+        # 获取用户订单信息
         return render(request, 'user_center_order.html', {'page': 'order'})
 
 
@@ -167,4 +171,48 @@ class AddressView(LoginRequiredMixin, View):
     """用户中心-地址页"""
 
     def get(self, request):
-        return render(request, 'user_center_site.html', {'page': 'address'})
+        # 获取用户地址
+        user = request.user
+        try:
+            address = Address.objects.get(user=user, is_default=True)
+        except Address.DoesNotExist:
+            address = None
+
+        return render(request, 'user_center_site.html', {'page': 'address', 'address': address})
+
+    def post(self, request):
+        """地址添加"""
+        receiver = request.POST.get('receiver')
+        addr = request.POST.get('addr')
+        zip_code = request.POST.get('zip_code')
+        phone = request.POST.get('phone')
+
+        if not all([receiver, addr, phone]):
+            return render(request, 'user_center_site.html', {'errmsg': '数据不完整'})
+
+        # 手机号校验
+        if not re.match(r'1[3,4,5,7,8]\d{9}$', phone):
+            return render(request, 'user_center_site.html', {'errmsg': '手机格式不正确'})
+
+        if len(zip_code) != 6:
+            return render(request, 'user_center_site.html', {'errmsg': '邮件编码错误'})
+
+        # 业务添加:如果用户已存在默认收货地址，添加的地址不作为默认地址，否则作为默认
+        user = request.user
+        try:
+            address = Address.objects.get(user=user, is_default=True)
+        except Address.DoesNotExist:
+            address = None
+
+        if address:
+            is_default = False
+        else:
+            is_default = True
+
+        Address.objects.create(user=user,
+                               receiver=receiver,
+                               addr=addr,
+                               zip_code=zip_code,
+                               phone=phone,
+                               is_default=is_default)
+        return redirect(reverse('user:address'))
