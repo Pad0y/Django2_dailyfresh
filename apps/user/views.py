@@ -173,11 +173,11 @@ class AddressView(LoginRequiredMixin, View):
     def get(self, request):
         # 获取用户地址
         user = request.user
-        try:
-            address = Address.objects.get(user=user, is_default=True)
-        except Address.DoesNotExist:
-            address = None
-
+        # try:
+        #     address = Address.objects.get(user=user, is_default=True)
+        # except Address.DoesNotExist:
+        #     address = None
+        address = Address.objects.get_default_address(user)
         return render(request, 'user_center_site.html', {'page': 'address', 'address': address})
 
     def post(self, request):
@@ -199,10 +199,7 @@ class AddressView(LoginRequiredMixin, View):
 
         # 业务添加:如果用户已存在默认收货地址，添加的地址不作为默认地址，否则作为默认
         user = request.user
-        try:
-            address = Address.objects.get(user=user, is_default=True)
-        except Address.DoesNotExist:
-            address = None
+        address = Address.objects.get_default_address(user)
 
         if address:
             is_default = False
