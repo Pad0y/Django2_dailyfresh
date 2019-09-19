@@ -3,7 +3,7 @@ from django.urls import reverse
 from django.views.generic import View
 from django.http import HttpResponse
 from django.conf import settings
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from itsdangerous import SignatureExpired
 from user.models import User
@@ -134,6 +134,15 @@ class LoginView(View):
 
         else:
             return render(request, 'login.html', {'errmsg': '用户名或密码错误'})
+
+
+# /user/logout
+class LogoutView(View):
+    def get(self, request):
+        """退出登录"""
+        # 清除用户session
+        logout(request)
+        return redirect(reverse('goods:index'))
 
 
 # /user
