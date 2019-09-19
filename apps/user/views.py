@@ -153,8 +153,11 @@ class UserInfoView(LoginRequiredMixin, View):
         # django会把request.user传给模板
 
         # 获取用户个人信息
+        user = request.user
+
+        address = Address.objects.get_default_address(user)
         # 获取用户浏览历史
-        return render(request, 'user_center_info.html', {'page': 'user'})
+        return render(request, 'user_center_info.html', {'page': 'user', 'address': address})
 
 
 # /user/order
