@@ -37,6 +37,11 @@ celery4.x 不兼容win10系统的处理办法
 - https://www.cnblogs.com/zipxzf/articles/11298180.html
 ```
 ```text
+UnicodeEncodeError: 'gbk' codec can't encode character '\xa9' in position 3104: illegal multibyte sequence
+with open(save_path, 'w',encoding='utf-8') as f:
+```
+
+```text
 py3fdfs踩坑记录
 https://www.jianshu.com/p/de789d6ea126
 ```

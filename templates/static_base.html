@@ -1,14 +1,15 @@
-{# 首页 / 注册  / 登录 继承此模板 #}
+{# 首页 注册 登录 #}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 {% load staticfiles %}
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-	<title>{% block title %}{% endblock %}</title>
+	{# 网页标题内容块 #}
+	<title>{% block title %}{% endblock title %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	{# 网页顶部引入文件块 #}
-    {% block topfiles %}{% endblock %}
+	{% block topfiles %}{% endblock topfiles %}
 </head>
 <body>
 {# 网页顶部欢迎信息块 #}
@@ -17,19 +18,11 @@
 		<div class="header">
 			<div class="welcome fl">欢迎来到天天生鲜!</div>
 			<div class="fr">
-                {% if user.is_authenticated %}
-				<div class="login_btn fl">
-					欢迎您：<em>{{user.username}}</em>
-                    <span>|</span>
-					<a href="{% url 'user:logout' %}">退出</a>
-				</div>
-                {% else %}
 				<div class="login_btn fl">
 					<a href="{% url 'user:login' %}">登录</a>
 					<span>|</span>
 					<a href="{% url 'user:register' %}">注册</a>
 				</div>
-                {% endif %}
 				<div class="user_link fl">
 					<span>|</span>
 					<a href="{% url 'user:user' %}">用户中心</a>
@@ -39,13 +32,14 @@
 					<a href="{% url 'user:order' %}">我的订单</a>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
-{% endblock %}
-{# 搜索框块 #}
-{% block  search_bar %}
+{% endblock header_con %}
+
+{# 网页顶部搜索块 #}
+{% block search_bar %}
 	<div class="search_bar clearfix">
-		<a href="index.html.bak" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+		<a href="index.html.bak" class="logo fl"><img src="images/logo.png"></a>
 		<div class="search_con fl">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
@@ -55,10 +49,11 @@
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>
-{% endblock %}
+{% endblock search_bar %}
 
-{# 网站主体内容块 #}
-{% block body %}{% endblock %}
+{# 网页主体内容块 #}
+{% block body %}
+{% endblock body %}
 
 	<div class="footer">
 		<div class="foot_link">
@@ -68,15 +63,17 @@
 			<span>|</span>
 			<a href="#">招聘人才</a>
 			<span>|</span>
-			<a href="#">友情链接</a>
+			<a href="#">友情链接</a>		
 		</div>
-		<p>CopyRight © 2019 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
+		<p>CopyRight © 2016 北京天天生鲜信息技术有限公司 All Rights Reserved</p>
 		<p>电话：010-****888    京ICP备*******8号</p>
 	</div>
-    {# 网页底部html元素块 #}
-    {% block bottom %}{% endblock %}
+{# 网页底部html引入元素块 #}
+{% block bottom %}
+{% endblock bottom %}
 
-    {# 网页底部引入文件块 #}
-    {% block bottomfiles %}{% endblock %}
+{# 网页底部引入文件块 #}
+{% block bottomfiles %}
+{% endblock bottomfiles %}
 </body>
 </html>
