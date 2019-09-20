@@ -41,6 +41,7 @@ UnicodeEncodeError: 'gbk' codec can't encode character '\xa9' in position 3104: 
 with open(save_path, 'w',encoding='utf-8') as f:
 ```
 TypeError at / 'bool' object is not callable
+user.is_authenticated() ---> user.is_authenticated
 https://www.jb51.net/article/167810.htm
 ```text
 py3fdfs踩坑记录
