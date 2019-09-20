@@ -10,7 +10,7 @@ from django.views.generic import View
 # 127.0.0.1:8000/
 # def index(request):
 #     """显示首页"""
-#     return render(request, 'index.html.bak')
+#     return render(request, 'index.html')
 
 class IndexView(View):
     def get(self, request):
@@ -35,7 +35,7 @@ class IndexView(View):
             # 获取用户购物车中商品的数目
         user = request.user
         cart_count = 0
-        if user.is_authenticated():
+        if user.is_authenticated:
             # 用户已登录
             conn = get_redis_connection('default')
             cart_key = 'cart_%d' % user.id
