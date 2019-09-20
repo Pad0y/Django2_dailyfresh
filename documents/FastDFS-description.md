@@ -34,21 +34,21 @@ wget https://github.com/happyfish100/libfastcommon/archive/V1.0.39.tar.gz -SO li
 wget https://github.com/happyfish100/fastdfs/archive/V5.11.tar.gz -SO fastdfs.tar.gz
 wget https://github.com/happyfish100/fastdfs-nginx-module/archive/V1.20.tar.gz -SO fastdfs-nginx-module.tar.gz
 # 解压三个压缩包
-tar -xf xxx.tar.gz
-tar -xf xxx.tar.gz
-tar -xf xxx.tar.gz
+$ tar -xf xxx.tar.gz
+$ tar -xf xxx.tar.gz
+$ tar -xf xxx.tar.gz
 ```
 # 安装FastDFS依赖库
 ```shell script
-cd libfastcommon-1.0.39
-./make.sh
-./make.sh install
+$ cd libfastcommon-1.0.39
+$ ./make.sh
+$ ./make.sh install
 ```
 # 安装 fastdfs
 ```shell script
 cd fastdfs-5.11
-./make.sh
-./make.sh install
+$ ./make.sh
+$ ./make.sh install
 ```
 安装好后，程序是在/usr/bin目录下：
 ```shell script
@@ -62,12 +62,12 @@ client.conf.sample storage_ids.conf.sample  tracker.conf.sample storage.conf.sam
 ```
 但是这些配置文件是不全的，而且都是模板，所以需要从fastdfs包中拷贝过来，并修改配置：
 ```shell script
-cd fastdfs-5.11/conf
+$ cd fastdfs-5.11/conf
 $ ls
 anti-steal.jpg  client.conf  http.conf  mime.types  storage.conf  storage_ids.conf  tracker.conf
-cp ./* /etc/fdfs
+$ p ./* /etc/fdfs
 # 进去fastdfs-nginx-module-1.20文件夹，把mod_fastdfs.conf 也复制到/etc/fdfs
- cp /opt/fdfs-package/fastdfs-nginx-module-1.20/src/mod_fastdfs.conf /etc/fdfs
+$ cp /opt/fdfs-package/fastdfs-nginx-module-1.20/src/mod_fastdfs.conf /etc/fdfs
 
 ```
 # 修改配置
@@ -81,7 +81,7 @@ base_path=/opt/fdfs-basepath/tracker
 
 # HTTP port on this tracker server
 # 若是默认端口已有服务运行记得更改
-http.server_port=9270
+http.server_port=6666
 ```
 - **vim /etc/fdfs/storage.conf**
 ```text
@@ -112,7 +112,7 @@ base_path=/opt/fdfs-basepath/client
 #  "host:port", host can be hostname or ip address
 tracker_server=191.8.1.77:22122
 #HTTP settings
-http.tracker_server_port=9270
+http.tracker_server_port=6666  # 必须和tracker.conf的端口一样
 ```
 - **vim /etc/fdfs/mod_fastdfs.conf**
 ```shell script
@@ -149,6 +149,18 @@ store_path0=/opt/fdfs-basepath/storage
 fdfs_trackerd /etc/fdfs/tracker.conf start
 fdfs_storaged /etc/fdfs/storage.conf start
 ```
+可以用 ps aux | grep fdfs 查看当前是否运行
+```text
+root     19696  0.0  0.2 145648  2080 ?        Sl   08:52   0:00 /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf
+root     19741  0.0  0.3  82292  2976 ?        Sl   08:52   0:00 /usr/bin/fdfs_storaged /etc/fdfs/storage.conf
+root     21969  0.0  0.1  13232   940 pts/1    S+   09:11   0:00 grep --color=auto fdfs
+```
+netstat -unltp | grep fdfs 查看当前端口监听情况
+```text
+root@VM-91-67-ubuntu:/etc/fdfs# netstat -unltp | grep fdfs
+tcp        0      0 0.0.0.0:23000           0.0.0.0:*               LISTEN      19741/fdfs_storaged
+tcp        0      0 0.0.0.0:22122           0.0.0.0:*               LISTEN      19696/fdfs_trackerd
+```
 # fdfs_upload_file 测试上传
 ```shell script
 fdfs_upload_file /etc/fdfs/client.conf /home/anti-steal.jpg
@@ -169,7 +181,6 @@ group1/M00/00/00/CmhbQ12DF9qAcZlDAABdrSqbHGQ055.jpg
 安装nginx
 ```text
 root@VM-91-67-ubuntu:~/nginx-src# apt-get install nginx
-
 root@VM-91-67-ubuntu:~/nginx-src# nginx -V
 nginx version: nginx/1.10.3 (Ubuntu)
 built with OpenSSL 1.0.2g  1 Mar 2016
@@ -266,6 +277,34 @@ cd /usr/sbin
 mv /usr/sbin/nginx nginx_bak
 ln -s /usr/share/nginx/sbin/nginx /usr/sbin/nginx
 ```
+接下来配置nginx配置文件
+```text
+vim /etc/nginx/nginx.conf
+```
+添加http模块里边修改server如下，如若没有自行添加
+```text
+server{                                          
+    listen  8888;                               
+    location ~/group[0-9]/{                      
+        root /opt/fastdfs-BasePath/storage/data; 
+        ngx_fastdfs_module;                      
+    }                                            
+}                                                
+```
+重启所有服务
+```text
+service fdfs_tracker restart
+service fdfs_storage restart
+nginx -s top && nginx
+```
+访问测试
+```text
+$ fdfs_upload_file /etc/fdfs/client.conf /home/kali.jpg
+group1/M00/00/00/CmhbQ12EIwqAeiLsAAWZC4LxnZI028.jpg
+```
+访问 ip:8888/group1/M00/00/00/CmhbQ12EIwqAeiLsAAWZC4LxnZI028.jpg
+![](mdImages/fdfs.png)
+
 # 相关资源
 - 源码地址：https://github.com/happyfish100/
 - 下载地址：http://sourceforge.net/projects/fastdfs/files/
