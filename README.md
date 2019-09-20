@@ -36,4 +36,8 @@ celery4.x 不兼容win10系统的处理办法
 - https://www.jianshu.com/p/57414db33c27 
 - https://www.cnblogs.com/zipxzf/articles/11298180.html
 ```
+```text
+py3fdfs踩坑记录
+https://www.jianshu.com/p/de789d6ea126
+```
 

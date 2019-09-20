@@ -170,3 +170,9 @@ SESSION_CACHE_ALIAS = "default"
 # Users center under the condition of the login to access
 LOGIN_URL = '/user/login'
 
+# Set the django file storage classes
+DEFAULT_FILE_STORAGE = 'utils.fdfs.storage.FDFSStorage'
+# Set fastdfs using the client of conf file path
+FDFS_CLIENT_CONF = './utils/fdfs/client.conf'
+# Set IP:port
+FDFS_STORAGE_URL = 'http://123.207.120.155:8888/'

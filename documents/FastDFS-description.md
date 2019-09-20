@@ -15,9 +15,11 @@ Storage server（后简称storage）以组（卷，group或volume）为单位组
 group内每个storage的存储依赖于本地文件系统，storage可配置多个数据存储目录，比如有10块磁盘，分别挂载在/data/disk1-/data/disk10，则可将这10个目录都配置为storage的数据存储目录。
 storage接受到写文件请求时，会根据配置好的规则（后面会介绍），选择其中一个存储目录来存储文件。为了避免单个目录下的文件数太多，在storage第一次启动时，会在每个数据存储目录里创建2级子目录，每级256个，总共65536个文件，新写的文件会以hash的方式被路由到其中某个子目录下，然后将文件数据直接作为一个本地文件存储到该目录中。
 ## Tracker server
+
 Tracker是FastDFS的协调者，负责管理所有的storage server和group，每个storage在启动后会连接Tracker，告知自己所属的group等信息，并保持周期性的心跳，tracker根据storage的心跳信息，建立group==>[storage server list]的映射表。
 Tracker需要管理的元信息很少，会全部存储在内存中；另外tracker上的元信息都是由storage汇报的信息生成的，本身不需要持久化任何数据，这样使得tracker非常容易扩展，直接增加tracker机器即可扩展为tracker cluster来服务，cluster里每个tracker之间是完全对等的，所有的tracker都接受stroage的心跳信息，生成元数据信息来提供读写服务。
 ---
+
 # Upload file
 FastDFS向使用者提供基本文件访问接口，比如upload、download、append、delete等，以客户端库的方式提供给用户使用。
 ## 上传文件流程图
@@ -58,13 +60,13 @@ $ which fdfs_trackerd
 而配置文件是在/etc/fdfs目录下：
 ```shell script
 $ ls /etc/fdfs
-client.conf.sample storage_ids.conf.sample  tracker.conf.sample storage.conf.sample
+client_deploy.conf storage_ids.conf.sample  tracker.conf.sample storage.conf.sample
 ```
 但是这些配置文件是不全的，而且都是模板，所以需要从fastdfs包中拷贝过来，并修改配置：
 ```shell script
 $ cd fastdfs-5.11/conf
 $ ls
-anti-steal.jpg  client.conf  http.conf  mime.types  storage.conf  storage_ids.conf  tracker.conf
+anti-steal.jpg  client_deploy.conf  http.conf  mime.types  storage.conf  storage_ids.conf  tracker.conf
 $ p ./* /etc/fdfs
 # 进去fastdfs-nginx-module-1.20文件夹，把mod_fastdfs.conf 也复制到/etc/fdfs
 $ cp /opt/fdfs-package/fastdfs-nginx-module-1.20/src/mod_fastdfs.conf /etc/fdfs
@@ -304,7 +306,6 @@ group1/M00/00/00/CmhbQ12EIwqAeiLsAAWZC4LxnZI028.jpg
 ```
 访问 ip:8888/group1/M00/00/00/CmhbQ12EIwqAeiLsAAWZC4LxnZI028.jpg
 ![](mdImages/fdfs.png)
-
 # 相关资源
 - 源码地址：https://github.com/happyfish100/
 - 下载地址：http://sourceforge.net/projects/fastdfs/files/
