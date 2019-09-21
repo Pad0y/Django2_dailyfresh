@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tinymce',  # Rich text editor
+    'haystack',  # Full text retrieval framework
     'user',
     'goods',
     'order',
@@ -176,3 +177,17 @@ DEFAULT_FILE_STORAGE = 'utils.fdfs.storage.FDFSStorage'
 FDFS_CLIENT_CONF = './utils/fdfs/client_dev.conf'
 # Set IP:port
 FDFS_STORAGE_URL = 'http://123.207.120.155:8888/'
+
+# haystack configure
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        # use whoosh engine
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        # Index file path
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+    }
+}
+
+# 当添加、修改、删除数据时，自动生成索引
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
