@@ -1,0 +1,64 @@
+{% extends 'base_detail_list.html' %}
+{% block title %}天天生鲜-商品列表{% endblock title %}
+{% block main_content %}
+	<div class="breadcrumb">
+		<a href="#">全部分类</a>
+		<span>></span>
+		<a href="#">{{ type.name }}</a>
+	</div>
+
+	<div class="main_wrap clearfix">
+		<div class="l_wrap fl clearfix">
+			<div class="new_goods">
+				<h3>新品推荐</h3>
+				<ul>
+                    {% for sku in new_skus %}
+					<li>
+						<a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>
+						<h4><a href="{% url 'goods:detail' sku.id %}">{{ sku.name }}</a></h4>
+						<div class="prize">￥{{ sku.price }}</div>
+					</li>
+                    {% endfor %}
+				</ul>
+			</div>
+		</div>
+
+		<div class="r_wrap fr clearfix">
+			<div class="sort_bar">
+				<a href="{% url 'goods:list' type.id 1 %}" {% if sort == 'default' %}class="active"{% endif %}>默认</a>
+				<a href="{% url 'goods:list' type.id 1 %}?sort=price" {% if sort == 'price' %}class="active"{% endif %}>价格</a>
+				<a href="{% url 'goods:list' type.id 1 %}?sort=hot" {% if sort == 'hot' %}class="active"{% endif %}>人气</a>
+			</div>
+
+			<ul class="goods_type_list clearfix">
+                {% for sku in skus_page %}
+				<li>
+					<a href="{% url 'goods:detail' sku.id %}"><img src="{{ sku.image.url }}"></a>
+					<h4><a href="{% url 'goods:detail' sku.id %}">{{ sku.name }}</a></h4>
+					<div class="operate">
+						<span class="prize">￥{{ sku.price }}</span>
+						<span class="unit">{{ sku.price}}/{{ sku.unite }}</span>
+						<a href="#" class="add_goods" title="加入购物车"></a>
+					</div>
+				</li>
+                {% endfor %}
+			</ul>
+
+			<div class="pagenation">
+                {% if skus_page.has_previous %}
+				<a href="{% url 'goods:list' type.id skus_page.previous_page_number %}?sort={{ sort }}"><上一页</a>
+                {% endif %}
+                {% for pindex in pages %}
+                    {% if pindex == skus_page.number %}
+				        <a href="{% url 'goods:list' type.id pindex %}?sort={{ sort }}" class="active">{{ pindex }}</a>
+                    {% else %}
+				        <a href="{% url 'goods:list' type.id pindex %}?sort={{ sort }}">{{ pindex }}</a>
+                    {% endif %}
+				{% endfor %}
+                {% if skus_page.has_next %}
+				<a href="{% url 'goods:list' type.id skus_page.next_page_number %}?sort={{ sort }}">下一页></a>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock main_content %}

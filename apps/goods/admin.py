@@ -2,6 +2,7 @@ from django.contrib import admin
 from goods.models import GoodsType, IndexTypeGoodsBanner, IndexPromotionBanner, IndexGoodsBanner
 from django.core.cache import cache
 
+
 class BaseModelAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
@@ -27,24 +28,26 @@ class BaseModelAdmin(admin.ModelAdmin):
         cache.delete('index_page_data')
 
 
+@admin.register(GoodsType)
 class GoodsTypeAdmin(BaseModelAdmin):
     pass
 
 
+@admin.register(IndexPromotionBanner)
 class IndexPromotionBannerAdmin(BaseModelAdmin):
     pass
 
 
+@admin.register(IndexTypeGoodsBanner)
 class IndexTypeGoodsBannerAdmin(BaseModelAdmin):
     pass
 
 
+@admin.register(IndexGoodsBanner)
 class IndexGoodsBannerAdmin(BaseModelAdmin):
     pass
 
-
-# Register your models here.
-admin.site.register(GoodsType, GoodsTypeAdmin)
-admin.site.register(IndexTypeGoodsBanner, IndexTypeGoodsBannerAdmin)
-admin.site.register(IndexPromotionBanner, IndexPromotionBannerAdmin)
-admin.site.register(IndexGoodsBanner, IndexGoodsBannerAdmin)
+# admin.site.register(GoodsType, GoodsTypeAdmin)
+# admin.site.register(IndexTypeGoodsBanner, IndexTypeGoodsBannerAdmin)
+# admin.site.register(IndexPromotionBanner, IndexPromotionBannerAdmin)
+# admin.site.register(IndexGoodsBanner, IndexGoodsBannerAdmin)
