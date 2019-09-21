@@ -1,40 +1,40 @@
 {% extends 'base_user_center.html' %}
 {% block right_content %}
-    <div class="right_content clearfix">
-        <h3 class="common_title2">收货地址</h3>
-        <div class="site_con">
-            <dl>
-                <dt>当前地址：</dt>
-                {% if address %}
-                    <dd>{{ address.addr }} {{ address.receiver }} {{ address.phone }}</dd>
-                {% else %}
-                    <dd>无默认地址</dd>
-                {% endif %}
-            </dl>
-        </div>
-        <h3 class="common_title2">编辑地址</h3>
-        <div class="site_con">
-            <form method="post">
-                {% csrf_token %}
-                <div class="form_group">
-                    <label>收件人：</label>
-                    <input type="text" name="receiver">
-                </div>
-                <div class="form_group form_group2">
-                    <label>详细地址：</label>
-                    <textarea class="site_area" name="addr"></textarea>
-                </div>
-                <div class="form_group">
-                    <label>邮编：</label>
-                    <input type="text" name="zip_code" maxlength="6">
-                </div>
-                <div class="form_group">
-                    <label>手机：</label>
-                    <input type="text" name="phone" maxlength="11">
-                </div>
+<div class="right_content clearfix">
+				<h3 class="common_title2">收货地址</h3>
+				<div class="site_con">
+					<dl>
+						<dt>当前地址：</dt>
+						{% if address %}
+						<dd>{{ address.addr }} ({{ address.receiver }} 收) {{ address.phone }}</dd>
+						{% else %}
+						<dd>无默认收货地址</dd>
+						{% endif %}
+					</dl>
+				</div>
+				<h3 class="common_title2">编辑地址</h3>
+				<div class="site_con">
+					<form method="post">
+						{% csrf_token %}
+						<div class="form_group">
+							<label>收件人：</label>
+							<input type="text" name="receiver">
+						</div>
+						<div class="form_group form_group2">
+							<label>详细地址：</label>
+							<textarea class="site_area" name="addr"></textarea>
+						</div>
+						<div class="form_group">
+							<label>邮编：</label>
+							<input type="text" name="zip_code">
+						</div>
+						<div class="form_group">
+							<label>手机：</label>
+							<input type="text" name="phone">
+						</div>
 
-                <input type="submit" name="" value="提交" class="info_submit">
-            </form>
-        </div>
-    </div>
-{% endblock %}
+						<input type="submit" name="" value="提交" class="info_submit">
+					</form>
+				</div>
+		</div>
+{% endblock right_content %}
