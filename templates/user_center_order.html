@@ -33,7 +33,7 @@
 				{% endfor %}
 				<div class="pagenation">
 					{% if order_page.has_previous_page %}
-					<a href="{% url 'user:order' order_page.previous_page_number %}"><上一页</a>
+					<a href="{% url 'user:order' order_page.previous_page_number %}">上一页</a>
 					{% endif %}
 					{% for pindex in pages %}
 						{% if pindex == order_page.number %}
