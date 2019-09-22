@@ -182,8 +182,8 @@ FDFS_STORAGE_URL = 'http://123.207.120.155:8888/'
 HAYSTACK_CONNECTIONS = {
     'default': {
         # use whoosh engine
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        # 'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
+        # 'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'ENGINE': 'haystack.backends.whoosh_cn_backend.WhooshEngine',
         # Index file path
         'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
     }

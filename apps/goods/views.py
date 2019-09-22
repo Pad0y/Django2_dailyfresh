@@ -20,7 +20,7 @@ class IndexView(View):
         context = cache.get('index_page_data')
         # print(context)
         if context is None:
-            print('设置缓存----------------------------')
+            # print('设置缓存----------------------------')  # debug info
             # 获取商品的种类信息
             types = GoodsType.objects.all()
             # 获取首页轮播商品信息
@@ -34,7 +34,7 @@ class IndexView(View):
                 # 获取type种类首页分类商品的文字展示信息
                 title_banners = IndexTypeGoodsBanner.objects.filter(type=type, display_type=0).order_by('index')
 
-                # 动态给type增加属性，分别保存首页分类商品的图片展示信息和文字展示信息
+                # 动态给type增:加属性，分别保存首页分类商品的图片展示信息和文字展示信息
                 type.image_banners = image_banners
                 type.title_banners = title_banners
 
