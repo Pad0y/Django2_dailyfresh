@@ -78,7 +78,6 @@ class OrderPlaceView(LoginRequiredMixin, View):
 # 悲观锁：执行的时候加琐 用户抢锁
 class OrderCommitView(View):
     """订单创建"""
-
     # 事务装饰器
     @transaction.atomic
     def post(self, request):
@@ -155,7 +154,7 @@ class OrderCommitView(View):
                     transaction.savepoint_rollback(save_id)
                     return JsonResponse({'res': 6, 'errmsg': ' 商品库存不足'})
 
-                # todo：向df_order_goods表中添加一条记录
+                # 向df_order_goods表中添加一条记录
                 OrderGoods.objects.create(order=order,
                                           sku=sku,
                                           count=count,
