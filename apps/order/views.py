@@ -161,17 +161,17 @@ class OrderCommitView(View):
                                           count=count,
                                           price=sku.price)
 
-                # todo: 更新商品的库存和销量
+                #  更新商品的库存和销量
                 sku.stock -= int(count)
                 sku.sales += int(count)
                 sku.save()
 
-                # todo: 累加计算订单商品的总数量和总价格
+                #  累加计算订单商品的总数量和总价格
                 amount = sku.price * int(count)
                 total_count += int(count)
                 total_price += amount
 
-            # todo: 更新订单信息表中的商品的总数量和总价格
+            # 更新订单信息表中的商品的总数量和总价格
             order.total_count = total_count
             order.total_price = total_price
             order.save()
