@@ -5,8 +5,9 @@ from django.views.generic import View
 from django_redis import get_redis_connection
 from user.models import Address
 from goods.models import GoodsSKU
-from order.models import OrderInfo
+from order.models import OrderInfo, OrderGoods
 from utils.mixin import LoginRequiredMixin
+from datetime import datetime
 
 
 # /order/place
@@ -77,6 +78,7 @@ class OrderPlaceView(LoginRequiredMixin, View):
 # 悲观锁：执行的时候加琐 用户抢锁
 class OrderCommitView(View):
     """订单创建"""
+
     # 事务装饰器
     @transaction.atomic
     def post(self, request):
@@ -107,13 +109,11 @@ class OrderCommitView(View):
             # 地址不存在
             return JsonResponse({'res': 3, 'errmsg': '地址不存在'})
 
-        # todo: 创建订单核心业务
-
         # 组织参数
         # 订单id： 年月日时间+用户id
         order_id = datetime.now().strftime('%Y%m%d%H%M%S') + str(user.id)
 
-        # 云飞
+        # 运费
         transit_price = 10
 
         # 总数木和总金额
@@ -123,16 +123,16 @@ class OrderCommitView(View):
         # 设置事务保存点
         save_id = transaction.savepoint()
         try:
-            # todo： 向df_order_info表中添加一条记录
+            # 向df_order_info表中添加一条记录
             order = OrderInfo.objects.create(order_id=order_id,
-                                     user=user,
-                                     addr=addr,
-                                     pay_method=pay_method,
-                                     total_count=total_count,
-                                     total_price=total_price,
-                                     transit_price=transit_price)
+                                             user=user,
+                                             addr=addr,
+                                             pay_method=pay_method,
+                                             total_count=total_count,
+                                             total_price=total_price,
+                                             transit_price=transit_price)
 
-            # todo： 用户的订单中有几个商品，需要向df_order_goods表中加入几条记录
+            # 用户的订单中有几个商品，需要向df_order_goods表中加入几条记录
             conn = get_redis_connection('default')
             cart_key = 'cart_%d' % user.id
 
@@ -150,7 +150,7 @@ class OrderCommitView(View):
                 # 从redis中获取用户所要购买的商品的数量
                 count = conn.hget(cart_key, sku_id)
 
-                # todo：判断商品的库存
+                # 判断商品的库存
                 if int(count) > sku.stock:
                     transaction.savepoint_rollback(save_id)
                     return JsonResponse({'res': 6, 'errmsg': ' 商品库存不足'})
@@ -183,7 +183,7 @@ class OrderCommitView(View):
         transaction.savepoint_commit(save_id)
 
         # todo： 清楚用户购物车中对应的记录 [1, 3]
-        conn.hdel(cart_key, *sku_ids) # 拆包
+        conn.hdel(cart_key, *sku_ids)  # 拆包
 
         # 返回应答
         return JsonResponse({'res': 5, 'message': '创建成功'})
