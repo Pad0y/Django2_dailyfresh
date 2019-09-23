@@ -56,8 +56,8 @@ def generate_static_index_html():
     # 加载模板文件
     temp = loader.get_template('static_index.html')
     static_index_html = temp.render(context)
-    print(static_index_html)
+    # print(static_index_html)
     save_path = os.path.join(settings.BASE_DIR, 'static\\index.html') # windows路径的问题
-    print(save_path)
+    # print(save_path)
     with open(save_path, 'w', encoding='utf-8') as f:
         f.write(static_index_html)
