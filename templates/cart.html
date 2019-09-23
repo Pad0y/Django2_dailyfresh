@@ -1,7 +1,7 @@
 {% extends 'base_no_cart.html' %}
 {% load staticfiles %}
-{% block title %}天天生鲜-购物车{% endblock title %}
-{% block page_title %}购物车{% endblock page_title %}
+{% block title %}天天生鲜-购物车{% endblock %}
+{% block page_title %}购物车{% endblock %}
 
 {% block body %}
 	<div class="total_count">全部商品<em>{{ total_count }}</em>件</div>
@@ -41,7 +41,7 @@
 	</ul>
 	</form>
 	{% csrf_token %}
-{% endblock body %}
+{% endblock %}
 {% block bottomfiles %}
 	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 	<script>
@@ -266,4 +266,4 @@
     })
 
 	</script>
-{% endblock bottomfiles %}
+{% endblock %}

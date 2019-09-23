@@ -5,11 +5,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	{# 网页标题内容块 #}
-	<title>{% block title %}{% endblock title %}</title>
+	<title>{% block title %}{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 	{# 网页顶部引入文件块 #}
-	{% block topfiles %}{% endblock topfiles %}
+	{% block topfiles %}{% endblock %}
 </head>
 <body>
 {# 网页顶部欢迎信息块 #}
@@ -34,7 +34,7 @@
 			</div>
 		</div>		
 	</div>
-{% endblock header_con %}
+{% endblock %}
 
 {# 网页顶部搜索块 #}
 {% block search_bar %}
@@ -49,11 +49,11 @@
 			<div class="goods_count fl" id="show_count">1</div>
 		</div>
 	</div>
-{% endblock search_bar %}
+{% endblock %}
 
 {# 网页主体内容块 #}
 {% block body %}
-{% endblock body %}
+{% endblock %}
 
 	<div class="footer">
 		<div class="foot_link">
@@ -70,10 +70,10 @@
 	</div>
 {# 网页底部html引入元素块 #}
 {% block bottom %}
-{% endblock bottom %}
+{% endblock %}
 
 {# 网页底部引入文件块 #}
 {% block bottomfiles %}
-{% endblock bottomfiles %}
+{% endblock %}
 </body>
 </html>

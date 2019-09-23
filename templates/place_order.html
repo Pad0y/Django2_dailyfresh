@@ -1,7 +1,7 @@
 {% extends 'base_no_cart.html' %}
 {% load staticfiles %}
-{% block title %}天天生鲜-提交订单{% endblock title %}
-{% block page_title %}提交订单{% endblock page_title %}
+{% block title %}天天生鲜-提交订单{% endblock %}
+{% block page_title %}提交订单{% endblock %}
 {% block body %}
 	<h3 class="common_title">确认收货地址</h3>
 
@@ -67,7 +67,7 @@
 		{% csrf_token %}
 		<a href="javascript:;" sku_ids={{ sku_ids }} id="order_btn">提交订单</a>
 	</div>	
-{% endblock body %}
+{% endblock %}
 {% block bottom %}
 	<div class="popup_con">
 		<div class="popup">
@@ -76,7 +76,7 @@
 		
 		<div class="mask"></div>
 	</div>
-{% endblock bottom %}
+{% endblock %}
 {% block bottomfiles %}
 	<script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
 	<script type="text/javascript">
@@ -114,4 +114,4 @@
 
 		});
 	</script>
-{% endblock bottomfiles %}
+{% endblock %}
