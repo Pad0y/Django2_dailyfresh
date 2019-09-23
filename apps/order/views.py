@@ -106,7 +106,6 @@ class OrderCommitView(View):
         try:
             addr = Address.objects.get(id=addr_id)
         except Address.DoesNotExist:
-            # 地址不存在
             return JsonResponse({'res': 3, 'errmsg': '地址不存在'})
 
         # 组织参数
@@ -143,7 +142,6 @@ class OrderCommitView(View):
                     # 悲观锁：select * from df_goods_sku where id=sku_id for update; for update 为加琐操作
                     sku = GoodsSKU.objects.select_for_update().get(id=sku_id)
                 except:
-                    # 商品不存在
                     transaction.savepoint_rollback(save_id)
                     return JsonResponse({'res': 4, 'errmsg': '商品不存在'})
 
@@ -181,9 +179,6 @@ class OrderCommitView(View):
 
         # 提交事务
         transaction.savepoint_commit(save_id)
-
-        # 清除用户购物车中对应的记录 [1, 3]
         conn.hdel(cart_key, *sku_ids)  # 拆包
-
         # 返回应答
         return JsonResponse({'res': 5, 'message': '创建成功'})

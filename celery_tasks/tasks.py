@@ -3,10 +3,10 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.template import loader, RequestContext
-import django
 import os
 
 # broker和worker在同一台机子上则需要加上本段代码
+import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django2_dailyfresh.settings')
 django.setup()
 
@@ -47,17 +47,10 @@ def generate_static_index_html():
     context = {'types': types,
                'goods_banners': goods_banners,
                'promotion_banners': promotion_banners}
-    # 设置缓存
-    # key  value timeout
-    # cache.set('index_page_data', context, 3600)
-    # 组织模板上下文
-    # context.update(cart_count=cart_count)
 
     # 加载模板文件
     temp = loader.get_template('static_index.html')
     static_index_html = temp.render(context)
-    # print(static_index_html)
-    save_path = os.path.join(settings.BASE_DIR, 'static\\index.html') # windows路径的问题
-    # print(save_path)
+    save_path = os.path.join(settings.BASE_DIR, 'static\\index.html')  # windows路径的问题
     with open(save_path, 'w', encoding='utf-8') as f:
         f.write(static_index_html)

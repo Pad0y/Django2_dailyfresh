@@ -10,6 +10,6 @@ urlpatterns = [
     path('logout', LogoutView.as_view(), name='logout'),
 
     path('', UserInfoView.as_view(), name='user'),
-    path('order', UserOrderView.as_view(), name='order'),
+    path('order/<int:page>', UserOrderView.as_view(), name='order'),
     path('address', AddressView.as_view(), name='address'),
 ]

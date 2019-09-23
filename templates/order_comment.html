@@ -1,0 +1,45 @@
+{% extends 'base_user_center.html' %}
+{% load staticfiles %}
+{% block title %}天天生鲜-用户中心{% endblock %}
+{% block page_title %}用户中心{% endblock page_title %}
+{% block right_content %}
+        <div class="right_content clearfix">
+            <h3 class="common_title2">订单评价</h3>
+                <ul class="order_list_th w978 clearfix">
+					<li class="col01">{{order.create_time}}</li>
+					<li class="col02">订单号：{{order.order_id}}</li>
+					<li class="col02 stress">{{order.status_name}}</li>
+				</ul>
+            <form method="post">
+                {% csrf_token %}
+                {# 订单id #}
+                <input type="hidden" name="order_id" value="{{order.order_id}}">
+                {# 订单中有几个商品 #}
+                <input type="hidden" name="total_count" value="{{order.order_skus|length}}">
+                {% for order_sku in order.order_skus %}
+                <table class="order_list_table w980">
+                    <tbody>
+                        <tr>
+                            <td width="80%">
+                                <ul class="order_goods_list clearfix">
+                                    <li class="col01"><img src="{{ order_sku.sku.image.url }}"></li>
+                                    <li class="col02">{{order_sku.sku.name}}<em>{{order_sku.price}}/{{order_sku.sku.unite}}</em></li>
+                                    <li class="col03">{{order_sku.count}}</li>
+                                </ul>
+                            </td>
+                            <td width="20%">{{order_sku.amount}}元</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="site_con">
+                    <input type="hidden" name="sku_{{forloop.counter}}" value="{{order_sku.sku.id}}">
+                    <div class="form_group form_group2">
+                        <label>评价内容：</label>
+                        <textarea class="site_area" name="content_{{forloop.counter}}"></textarea>
+                    </div>
+                </div>
+                {% endfor %}
+                <input type="submit" name="" value="提交" class="info_submit">
+            </form>
+        </div>
+{% endblock right_content %}
