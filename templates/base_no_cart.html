@@ -1,15 +1,14 @@
-{# 购物车 / 提交订单 继承此模板 #}
+{# 购物车 提交订单 #}
 {% extends 'base.html' %}
 {% load staticfiles %}
-
-{# 搜索框块 #}
-{% block  search_bar %}
+{# 网页顶部搜索框块 #}
+{% block search_bar %}
     <div class="search_bar clearfix">
 		<a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
-		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;{% block page_title %}{% endblock %}</div>
+		<div class="sub_page_name fl">|&nbsp;&nbsp;&nbsp;&nbsp;{% block page_title %}{% endblock page_title %}</div>
 		<div class="search_con fr">
 			<input type="text" class="input_text fl" name="" placeholder="搜索商品">
 			<input type="button" class="input_btn fr" name="" value="搜索">
 		</div>
 	</div>
-{% endblock %}
+{% endblock search_bar %}
