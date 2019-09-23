@@ -182,7 +182,7 @@ class OrderCommitView(View):
         # 提交事务
         transaction.savepoint_commit(save_id)
 
-        # todo： 清楚用户购物车中对应的记录 [1, 3]
+        # 清除用户购物车中对应的记录 [1, 3]
         conn.hdel(cart_key, *sku_ids)  # 拆包
 
         # 返回应答
