@@ -292,7 +292,7 @@ class CheckPayView(View):
             """
                 响应参数
                 response = {              
-                    "trade_no": "2017032121001004070200176844", # 支付宝交易号
+                    "trade_no": "2019092121001004070200176844", # 支付宝交易号
                     "code": "10000", # 接口调用是否成功
                     "invoice_amount": "20.00",
                     "open_id": "20880072506750308812798160715407",
@@ -303,7 +303,7 @@ class CheckPayView(View):
                       }
                     ],
                     "buyer_logon_id": "csq***@sandbox.com",
-                    "send_pay_date": "2017-03-21 13:29:17",
+                    "send_pay_date": "2019-09-21 13:29:17",
                     "receipt_amount": "20.00",
                     "out_trade_no": "out_trade_no15",
                     "buyer_pay_amount": "20.00",
