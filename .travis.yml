@@ -1,0 +1,14 @@
+language: python
+services:
+    - mysql
+    - redis-server
+python:
+    - "3.6"
+os: windows
+env:
+  - DJANGO_VERSION=2.2.5
+before_install:
+    - python -m pip install -U pip
+    - redis-server redis.windows.conf
+install:
+    - pip install -r requirements.txt
