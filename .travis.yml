@@ -6,7 +6,7 @@ python:
 services:
   - redis-server
   - mysql
-
+os: windows
 env:
   - DJANGO_VERSION=2.2.5
 
