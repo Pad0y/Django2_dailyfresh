@@ -92,3 +92,7 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+# 后言
+如果本项目能帮助到在学习django2的你或者对你有其他帮助，give me a start
+若有什么需要改进或者疑问的地方欢迎提出issue 
