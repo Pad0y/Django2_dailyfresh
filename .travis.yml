@@ -1,10 +1,9 @@
 language: python
-services:
-    - mysql
-    - redis-server
 python:
     - "3.6"
-os: windows
+services:
+  - redis-server
+  - mysql
 env:
   - DJANGO_VERSION=2.2.5
 before_install:
