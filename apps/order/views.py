@@ -254,7 +254,7 @@ class CheckPayView(View):
         # 用户是否登录
         user = request.user
         if not user.is_authenticated():
-            return JsonResponse({'res': 0, 'errmsg': '用户未邓丽'})
+            return JsonResponse({'res': 0, 'errmsg': '用户未登陆'})
 
         # 接收参数
         order_id = request.POST.get('order_id')
@@ -276,7 +276,7 @@ class CheckPayView(View):
         # 业务处理：使用Python sdk调用支付宝的支付接口
         # 初始化
         alipay = AliPay(
-            appid="2016092400581852",  # 应用id
+            appid="2019092100581852",  # 应用id
             app_notify_url=None,  # 默认回调url
             app_private_key_string=app_private_key_string,
             # 支付宝的公钥，验证支付宝回传消息使用，不是你自己的公钥,
