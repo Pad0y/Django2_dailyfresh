@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'Django2_dailyfresh.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'dailyfresh',  # database name
+        'NAME': 'dailyfresh',
         'HOST': 'localhost',
         'PORT': '3306',
-        'USER': 'Username',
-        'PASSWORD': 'Your Password',
+        'USER': 'root',
+        'PASSWORD': '546926936',
     }
 }
 
@@ -131,7 +131,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
-STATIC_ROOT = '/var/www/html/Django2_dailyfresh/static'
 
 # The rich text editor configuration
 # https://django-tinymce.readthedocs.io/en/latest/installation.html
@@ -147,10 +146,10 @@ TINYMCE_DEFAULT_CONFIG = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
-EMAIL_HOST_USER = 'your email'
-EMAIL_HOST_PASSWORD = 'your authorization code'  # 授权码
+EMAIL_HOST_USER = '1148364963@qq.com'
+EMAIL_HOST_PASSWORD = 'vxpabesgntcxjhed'  # 授权码
 # EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
-EMAIL_FROM = '天天生鲜<xxx@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
+EMAIL_FROM = '天天生鲜<1148364963@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
 
 # django-redis cache configuration
 # https://django-redis-chs.readthedocs.io/zh_CN/latest/
@@ -177,7 +176,7 @@ DEFAULT_FILE_STORAGE = 'utils.fdfs.storage.FDFSStorage'
 # Set fastdfs using the client of conf file path
 FDFS_CLIENT_CONF = './utils/fdfs/client_dev.conf'
 # Set IP:port
-FDFS_STORAGE_URL = ''  # fdfs所在服务器地址 http://ip:port
+FDFS_STORAGE_URL = 'http://123.207.120.155:8888/'
 
 # haystack configure
 HAYSTACK_CONNECTIONS = {
@@ -190,5 +189,5 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
-# CURD automatically generate the index
+# 当添加、修改、删除数据时，自动生成索引
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
