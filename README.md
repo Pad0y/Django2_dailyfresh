@@ -64,7 +64,7 @@ OS: win10
 - [windows上celery4.x不兼容问题完美解决办法](documents/celery_on_win10.md)
 - [jieba分词设置修改](documents/jieba.md)
 - [支付宝sdk接入](https://github.com/fzlee/alipay/blob/master/README.zh-hans.md)
-- [django1.x和2.x的不用之处](documents/diff.md)
+- [django1.x和2.x的不同之处](documents/diff.md)
 # 项目部署（开发环境）
 - 依赖库安装
 ```text
