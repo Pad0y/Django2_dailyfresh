@@ -19,7 +19,7 @@ kombu==4.6.4
 monotonic==1.5
 more-itertools==7.2.0
 mysqlclient==1.4.4
-Pillow==6.1.0
+Pillow==6.2.0
 py3Fdfs==2.2.0
 pycryptodomex==3.7.2
 PyMySQL==0.9.3
