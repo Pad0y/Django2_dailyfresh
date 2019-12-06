@@ -22,7 +22,7 @@ redis：作为django缓存和session存储后端，提升网站性能，给予�
 ## 开发环境  
 ```text
 python:3.6.5
-django:2.2.5
+django:2.2.8
 pycharm:2019.2
 OS: win10
 ```
