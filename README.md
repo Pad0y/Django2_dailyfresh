@@ -101,8 +101,8 @@ python manage.py migrate
 python manage.py runserver
 ```
 # BUGFIX
-2019.11.06 Bump django from 2.2.5 to 2.2.8 [Fixed CVE-2019-19118](https://github.com/Pad0y/Django2_dailyfresh/pull/4)
-2019.10.23 Bump pillow from 6.1.0 to 6.2.0 [commit log](https://github.com/Pad0y/Django2_dailyfresh/pull/3/commits/f2c74ed0a8d262b1da722dfdb4815348ec31992e)
+- 2019.11.6：[Fixed CVE-2019-19118](https://github.com/advisories/GHSA-hvmf-r92r-27hr)
+- 2019.10.23：[Bump pillow from 6.1.0 to 6.2.0 ](https://github.com/Pad0y/Django2_dailyfresh/pull/3/commits/f2c74ed0a8d262b1da722dfdb4815348ec31992e)
 # 后言
 如果本项目能帮助到在学习django2的你或者对你有其他帮助，give me a star
 若有什么需要改进或者疑问的地方欢迎提出issue 
