@@ -101,6 +101,7 @@ python manage.py migrate
 python manage.py runserver
 ```
 # BUGFIX
+- 2020.4.02: [Fixed CVE-2020-5313 FLI buffer overflow](https://github.com/advisories/GHSA-hj69-c76v-86wr)
 - 2020.2.12：[Fixed CVE-2020-7471 SQL injection](https://www.djangoproject.com/weblog/2020/feb/03/security-releases/)
 - 2020.1.17：[Fixed CVE-2019-19844](https://github.com/advisories/GHSA-vfq6-hq5r-27r6)
 - 2019.11.6：[Fixed CVE-2019-19118](https://github.com/advisories/GHSA-hvmf-r92r-27hr)
