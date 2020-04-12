@@ -185,5 +185,5 @@ dmypy.json
 .pyre/
 
 # custom
-README1.md
 Django2_dailyfresh/settings.py
+utils/fdfs/client_deploy.conf

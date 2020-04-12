@@ -1,5 +1,5 @@
 from django.contrib import admin
-from goods.models import GoodsType, IndexTypeGoodsBanner, IndexPromotionBanner, IndexGoodsBanner
+from goods.models import *
 from django.core.cache import cache
 
 
@@ -26,6 +26,16 @@ class BaseModelAdmin(admin.ModelAdmin):
 
         # 清除缓存
         cache.delete('index_page_data')
+
+
+@admin.register(Goods)
+class GoodsAdmin(BaseModelAdmin):
+    pass
+
+
+@admin.register(GoodsSKU)
+class GoodsSKUAdmin(BaseModelAdmin):
+    pass
 
 
 @admin.register(GoodsType)

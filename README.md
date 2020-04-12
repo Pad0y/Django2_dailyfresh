@@ -8,7 +8,7 @@
 
 ## 简介
 **本项目替换原项目框架django1.8为最新版的django2.2.5（已修复为2.2.10）**，该项目包含了实际开发中的电商项目中大部分的功能开发和知识点实践，
-是一个非常不错的django学习项目，同时也记录在替换框架中遇到的坑，所遇到的django1.x和2.x的区别，希望对各位有所帮助。
+是一个非常不错的django学习项目，同时也记录在替换框架中遇到的坑，所遇到的django1.x和2.x的区别，希望对各位的学习有所帮助。
 
 关键词：django2 celery fdfs haystack whoosh redis nginx 高并发 分布式
 
@@ -53,18 +53,18 @@ OS: win10
  
 
 ## 项目架构图
-![项目架构图](documents/mdImages/project_frame.png)
+![项目架构图](docs/mdImages/project_frame.png)
 
 ## 数据库表分析图
-![数据库表分析图](documents/mdImages/db_design.png)
+![数据库表分析图](docs/mdImages/db_design.png)
 
 # 环境配置
-- [FDFS配合Nginx的安装](documents/FastDFS-description.md)
-- [python3与fdfs交互踩坑记录](documents/py3fdfs.md)
-- [windows上celery4.x不兼容问题完美解决办法](documents/celery_on_win10.md)
-- [jieba分词设置修改](documents/jieba.md)
+- [FDFS配合Nginx的安装](docs/FastDFS-description.md)
+- [python3与fdfs交互踩坑记录](docs/py3fdfs.md)
+- [windows上celery4.x不兼容问题完美解决办法](docs/celery_on_win10.md)
+- [jieba分词设置修改](docs/jieba.md)
 - [支付宝sdk接入](https://github.com/fzlee/alipay/blob/master/README.zh-hans.md)
-- [django1.x和2.x的不同之处](documents/diff.md)
+- [django1.x和2.x的不同之处](docs/diff.md)
 # 项目部署（开发环境）
 - 依赖库安装
 ```text
@@ -90,7 +90,37 @@ $ /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start
 $ /usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
 $ nginx
 ```
+# 项目配置文件修改
+```text
+1. 重命名Django2_dailyfresh文件夹下的settings.py.example
+   文件为settings.py
 
+2. 修改数据库配置信息
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'dailyfresh',
+        'HOST': 'localhost',
+        'PORT': '3306',
+        'USER': '#',  # 数据库用户名
+        'PASSWORD': '#',  # 数据库密码
+    }
+}
+
+3. 修改邮箱配置信息，163邮箱配置信息自查
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'xxxx@qq.com'  # 发送邮件的邮箱
+EMAIL_HOST_PASSWORD = 'xxxx'  # qq邮箱授权码
+# EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
+EMAIL_FROM = '天天生鲜<XXXXX@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
+
+4. 填写fdfs的配置信息，注意端口是nginx的端口
+FDFS_STORAGE_URL = 'http://ip:port'  
+
+5. 支付功能不需要用到的保持默认即可，需要用到移步官方文档或看配置文件注释
+```
 # 迁移数据库
 ```
 python manage.py makemigrations
@@ -100,12 +130,18 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+# 效果图
+![首页效果图](docs/mdImages/index.png)
+![首页效果图](docs/mdImages/index2.png)
+![后台显示](docs/mdImages/backend-display.png)
 # BUGFIX
+- 2020.4.12: Fix the background management page display
 - 2020.4.02: [Fixed CVE-2020-5313 FLI buffer overflow](https://github.com/advisories/GHSA-hj69-c76v-86wr)
 - 2020.2.12：[Fixed CVE-2020-7471 SQL injection](https://www.djangoproject.com/weblog/2020/feb/03/security-releases/)
 - 2020.1.17：[Fixed CVE-2019-19844](https://github.com/advisories/GHSA-vfq6-hq5r-27r6)
 - 2019.11.6：[Fixed CVE-2019-19118](https://github.com/advisories/GHSA-hvmf-r92r-27hr)
 - 2019.10.23：[Bump pillow from 6.1.0 to 6.2.0 ](https://github.com/Pad0y/Django2_dailyfresh/pull/3/commits/f2c74ed0a8d262b1da722dfdb4815348ec31992e)
+
 # 后言
 如果本项目能帮助到在学习django2的你或者对你有其他帮助，give me a star
 若有什么需要改进或者疑问的地方欢迎提出issue 

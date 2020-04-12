@@ -5,17 +5,18 @@
 - 主要解决了大容量的文件存储和高并发访问的问题，文件存取时实现了负载均衡
 - FastDFS实现了软件方式的RAID，可以使用廉价的IDE硬盘进行存储
 - 支持存储服务器在线扩容，支持相同内容的文件只保存一份，节约磁盘空间
----
 # 系统架构图
 ![](mdImages/FastDFS.jpg)
 ---
+
 ## Storage server
 Storage server（后简称storage）以组（卷，group或volume）为单位组织，一个group内包含多台storage机器，数据互为备份，存储空间以group内容量最小的storage为准，所以建议group内的多个storage尽量配置相同，以免造成存储空间的浪费。
 以group为单位组织存储能方便的进行应用隔离、负载均衡、副本数定制（group内storage server数量即为该group的副本数），比如将不同应用数据存到不同的group就能隔离应用数据，同时还可根据应用的访问特性来将应用分配到不同的group来做负载均衡；缺点是group的容量受单机存储容量的限制，同时当group内有机器坏掉时，数据恢复只能依赖group内地其他机器，使得恢复时间会很长。
 group内每个storage的存储依赖于本地文件系统，storage可配置多个数据存储目录，比如有10块磁盘，分别挂载在/data/disk1-/data/disk10，则可将这10个目录都配置为storage的数据存储目录。
 storage接受到写文件请求时，会根据配置好的规则（后面会介绍），选择其中一个存储目录来存储文件。为了避免单个目录下的文件数太多，在storage第一次启动时，会在每个数据存储目录里创建2级子目录，每级256个，总共65536个文件，新写的文件会以hash的方式被路由到其中某个子目录下，然后将文件数据直接作为一个本地文件存储到该目录中。
-## Tracker server
+---
 
+## Tracker server
 Tracker是FastDFS的协调者，负责管理所有的storage server和group，每个storage在启动后会连接Tracker，告知自己所属的group等信息，并保持周期性的心跳，tracker根据storage的心跳信息，建立group==>[storage server list]的映射表。
 Tracker需要管理的元信息很少，会全部存储在内存中；另外tracker上的元信息都是由storage汇报的信息生成的，本身不需要持久化任何数据，这样使得tracker非常容易扩展，直接增加tracker机器即可扩展为tracker cluster来服务，cluster里每个tracker之间是完全对等的，所有的tracker都接受stroage的心跳信息，生成元数据信息来提供读写服务。
 ---
@@ -29,12 +30,11 @@ FastDFS向使用者提供基本文件访问接口，比如upload、download、ap
 ---
 # 安装
 ```shell script
-cd /opt/fdfs-packge
-# -S print server response
-# -O write documents to file
+cd /opt/fdfs-packge 
 wget https://github.com/happyfish100/libfastcommon/archive/V1.0.39.tar.gz -SO libfastcommon.tar.gz
 wget https://github.com/happyfish100/fastdfs/archive/V5.11.tar.gz -SO fastdfs.tar.gz
 wget https://github.com/happyfish100/fastdfs-nginx-module/archive/V1.20.tar.gz -SO fastdfs-nginx-module.tar.gz
+
 # 解压三个压缩包
 $ tar -xf xxx.tar.gz
 $ tar -xf xxx.tar.gz
@@ -48,16 +48,17 @@ $ ./make.sh install
 ```
 # 安装 fastdfs
 ```shell script
-cd fastdfs-5.11
+$ cd fastdfs-5.11
 $ ./make.sh
 $ ./make.sh install
 ```
 安装好后，程序是在/usr/bin目录下：
 ```shell script
 $ which fdfs_trackerd
-/usr/bin/fdfs_trackerd
+$ which fdfs_storage
 ```
-而配置文件是在/etc/fdfs目录下：
+得到如下结果：/usr/bin/fdfs_trackerd,说明安装成功
+配置文件是在/etc/fdfs目录下：
 ```shell script
 $ ls /etc/fdfs
 client_deploy.conf storage_ids.conf.sample  tracker.conf.sample storage.conf.sample
@@ -67,26 +68,27 @@ client_deploy.conf storage_ids.conf.sample  tracker.conf.sample storage.conf.sam
 $ cd fastdfs-5.11/conf
 $ ls
 anti-steal.jpg  client_deploy.conf  http.conf  mime.types  storage.conf  storage_ids.conf  tracker.conf
-$ p ./* /etc/fdfs
+$ cp ./* /etc/fdfs
 # 进去fastdfs-nginx-module-1.20文件夹，把mod_fastdfs.conf 也复制到/etc/fdfs
 $ cp /opt/fdfs-package/fastdfs-nginx-module-1.20/src/mod_fastdfs.conf /etc/fdfs
-
 ```
 # 修改配置
 -  **vim /etc/fdfs/tracker.conf**
-```
+```shell script
 # the tracker server port
 port=22122
 
 # the base path to store data and log files
-base_path=/opt/fdfs-basepath/tracker
+# tracker文件存放位置，按需修改
+base_path=/opt/fdfs-basepath/tracker  
 
 # HTTP port on this tracker server
 # 若是默认端口已有服务运行记得更改
 http.server_port=6666
 ```
+---
 - **vim /etc/fdfs/storage.conf**
-```text
+```shell script
 # storage所属的组
 group_name=group1
 
@@ -94,6 +96,7 @@ group_name=group1
 port=23000
 
 # the base path to store data and log files
+# storage服务存放的位置，按需修改
 base_path=/opt/fdfs-basepath/storage
 
 # store_path#, based 0, if store_path0 not exists, it's value is base_path
@@ -104,10 +107,11 @@ store_path0=opt/fdfs-basepath/storage
 tracker_server=191.8.1.77:22122
 
 # the port of the web server on this storage server
+# 填写nginx的端口号
 http.server_port=8888
 ```
 - **vim vi /etc/fdfs/client.conf**
-```text
+```shell script
 # the base path to store log files
 base_path=/opt/fdfs-basepath/client
 # tracker_server can ocur more than once, and tracker_server format is
@@ -144,8 +148,8 @@ store_path0=/opt/fdfs-basepath/storage
     - 确保各种配置文件之间引用的端口一直。比如：
         - mod_fastdfs.conf文件中tracker_server的端口应该跟tracker.conf中port一致；
         - mod_fastdfs.conf文件中storage_server_port的端口应该跟跟storage.conf中port一致；
-
 ---
+
 # 启动tracker和storage：
 ```shell script
 fdfs_trackerd /etc/fdfs/tracker.conf start
