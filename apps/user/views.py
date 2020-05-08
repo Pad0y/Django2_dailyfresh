@@ -255,8 +255,22 @@ class AddressView(LoginRequiredMixin, View):
         #     address = Address.objects.get(user=user, is_default=True)
         # except Address.DoesNotExist:
         #     address = None
-        address = Address.objects.get_default_address(user)
-        return render(request, 'user_center_site.html', {'page': 'address', 'address': address})
+        # address = Address.objects.get_default_address(user)
+        # return render(request, 'user_center_site.html', {'page': 'address', 'address': address})
+
+        default_address = Address.objects.get_default_address(user)
+
+        all_address = Address.objects.get_all_address(user)
+
+        # 组织模板上下文
+        context = {
+            'address': default_address,
+            'have_address': all_address,
+            'page': 'address'
+        }
+
+        # 使用模板
+        return render(request, 'user_center_site.html', context)
 
     def post(self, request):
         """地址添加"""

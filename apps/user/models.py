@@ -27,6 +27,14 @@ class AddressManage(models.Manager):
 
         return address
 
+    def get_all_address(self, user):
+        """获取所有地址"""
+        try:
+            have_address = self.filter(user=user)
+        except self.model.DoesNotExist:
+            have_address = None
+        return have_address
+
 
 class Address(BaseModel):
     """地址模型类"""
