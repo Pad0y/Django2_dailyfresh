@@ -48,7 +48,7 @@
 {# 网页顶部搜索块 #}
 {% block search_bar %}
     <div class="search_bar clearfix">
-        <a href="index.html" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
+        <a href="{% url 'goods:index' %}" class="logo fl"><img src="{% static 'images/logo.png' %}"></a>
         <div class="search_con fl">
             <form method="get" action="/search">
                 <input type="text" class="input_text fl" name="q" placeholder="搜索商品">
@@ -56,7 +56,7 @@
             </form>
         </div>
         <div class="guest_cart fr">
-            <a href="#" class="cart_name fl">我的购物车</a>
+            <a href="{% url 'cart:show' %}" class="cart_name fl">我的购物车</a>
             <div class="goods_count fl" id="show_count">{{ cart_count }}</div>
         </div>
     </div>

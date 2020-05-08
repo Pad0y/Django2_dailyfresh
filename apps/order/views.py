@@ -89,7 +89,7 @@ class OrderCommitView(View):
         """订单创建"""
         # 判断用户是否登录,非后台无法使用LoginRequiredMixin验证
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             # 用户美登录
             return JsonResponse({'res': 0, 'errmsg': '用户未登录'})
 
@@ -195,7 +195,7 @@ class OrderPayView(View):
         """订单支付"""
         # 用户是否登录
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return JsonResponse({'res': 0, 'errmsg': '用户未邓丽'})
 
         # 接收参数
@@ -253,7 +253,7 @@ class CheckPayView(View):
         """查询支付结果"""
         # 用户是否登录
         user = request.user
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return JsonResponse({'res': 0, 'errmsg': '用户未登陆'})
 
         # 接收参数
