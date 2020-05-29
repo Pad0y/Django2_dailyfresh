@@ -22,7 +22,6 @@ class CartAddView(View):
         # 接收数据
         sku_id = request.POST.get('sku_id')
         count = request.POST.get('count')
-
         # 数据校验
         if not all([sku_id, count]):
             return JsonResponse({'res': 1, 'errmsg': '数据不完整'})
@@ -43,7 +42,7 @@ class CartAddView(View):
 
         # 业务处理 添加购物车记录
         conn = get_redis_connection('default')
-        cart_key = 'cart_%d' % user.id
+        cart_key = 'cart_%s' % user.id
         # 先尝试获取sku_id的值 -> hget cart_key 属性
         # 如果sku_id在hash中不存在，hget返回None
         cart_count = conn.hget(cart_key, sku_id)
@@ -80,13 +79,17 @@ class CartInfoView(LoginRequiredMixin, View):
         cart_key = 'cart_%d' % user.id
         # {'商品id':商品数量}
         cart_dict = conn.hgetall(cart_key)
-
         skus = []
         # 保存用户购物从中商品的总数和总价
         total_count = 0
         total_price = 0
         # 遍历获取商品的信息
         for sku_id, count in cart_dict.items():
+            
+            # bugfix 从redis 取出数据变成byte类型
+            sku_id = sku_id.decode()
+            count = count.decode()
+            
             # 根据商品的id获取商品的信息
             sku = GoodsSKU.objects.get(id=sku_id)
             # 计算商品的小计
