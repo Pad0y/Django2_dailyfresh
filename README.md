@@ -12,7 +12,7 @@
 
 关键词：django2 celery fdfs haystack whoosh redis nginx 高并发 分布式
 
-# 技术栈
+# 主要技术栈
 ```text
 celery：分别负责用户注册异步发送邮件以及不同用户登陆系统动态生成首页
 fdfs+nginx：存储网站静态文件，实现项目和资源分离，达到分布式效果
@@ -24,7 +24,7 @@ redis：作为django缓存和session存储后端，提升网站性能，给予�
 python:3.6.5
 django:2.2.10
 pycharm:2019.2
-OS: win10
+OS: windows 10
 ```
 ## 功能模块
 - [x] 用户模块
@@ -85,6 +85,7 @@ $ celery -A celery_tasks.tasks worker --loglevel=info -P eventlet
 ```
 
 # 启动FastDFS服务, 启动nginx
+fdfs的安装方式详见[这里](docs/FastDFS-description.md)
 ```shell script
 $ /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start
 $ /usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
@@ -117,7 +118,7 @@ EMAIL_HOST_PASSWORD = 'xxxx'  # qq邮箱授权码
 EMAIL_FROM = '天天生鲜<XXXXX@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
 
 4. 填写fdfs的配置信息，注意端口是nginx的端口
-FDFS_STORAGE_URL = 'http://ip:port'  
+FDFS_STORAGE_URL = 'http://ip:port/'  
 
 5. 支付功能不需要用到的保持默认即可，需要用到移步官方文档或看配置文件注释
 ```
@@ -128,6 +129,9 @@ python manage.py migrate
 ```
 # 启动
 ```
+# 创建超级管理员
+python manage.py createsuperuser
+# 启动服务
 python manage.py runserver
 ```
 # 效果图
@@ -135,7 +139,8 @@ python manage.py runserver
 ![首页效果图](docs/mdImages/index2.png)
 ![后台显示](docs/mdImages/backend-display.png)
 # BUGFIX
-- 2020.4.12: Fix the background management page display
+- 2020.6.06: [Bump django from 2.2.10 to 2.2.13](https://github.com/Pad0y/Django2_dailyfresh/pull/8)
+- 2020.4.12: Fixed the background management page display
 - 2020.4.02: [Fixed CVE-2020-5313 FLI buffer overflow](https://github.com/advisories/GHSA-hj69-c76v-86wr)
 - 2020.2.12：[Fixed CVE-2020-7471 SQL injection](https://www.djangoproject.com/weblog/2020/feb/03/security-releases/)
 - 2020.1.17：[Fixed CVE-2019-19844](https://github.com/advisories/GHSA-vfq6-hq5r-27r6)
@@ -143,5 +148,5 @@ python manage.py runserver
 - 2019.10.23：[Bump pillow from 6.1.0 to 6.2.0 ](https://github.com/Pad0y/Django2_dailyfresh/pull/3/commits/f2c74ed0a8d262b1da722dfdb4815348ec31992e)
 
 # 后言
-如果本项目能帮助到在学习django2的你或者对你有其他帮助，give me a star
+如果本项目能帮助到在学习django2的你或者对你有其他帮助记得给个star噢!:wink:
 若有什么需要改进或者疑问的地方欢迎提出issue 
