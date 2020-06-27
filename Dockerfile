@@ -16,13 +16,9 @@ ENV HOME=/root/fastdfs \
     FDFS_PORT=22122
 
 # 创建目录
-RUN mkdir -p ${HOME}
-
-# 切换阿里源
-RUN echo -e "http://mirrors.aliyun.com/alpine/v3.7/main\nhttp://mirrors.aliyun.com/alpine/v3.7/community" > /etc/apk/repositories
-
-# 升级软件包
-RUN apk update
+RUN mkdir -p ${HOME} && \
+    echo -e "http://mirrors.aliyun.com/alpine/v3.7/main\nhttp://mirrors.aliyun.com/alpine/v3.7/community" > /etc/apk/repositories && \
+    apk update
 
 # 安装必要的软件
 RUN apk add --no-cache --virtual .mybuilds \
@@ -112,7 +108,7 @@ RUN apk del .mybuilds
 RUN apk add bash pcre-dev zlib-dev
 
 # 创建启动脚本
-RUN     echo -e "mkdir -p /var/local/fdfs/storage/data /var/local/fdfs/tracker; \n\
+RUN echo -e "mkdir -p /var/local/fdfs/storage/data /var/local/fdfs/tracker; \n\
 ln -s /var/local/fdfs/storage/data/ /var/local/fdfs/storage/data/M00; \n\n\
 sed -i \"s/listen\ .*$/listen\ \$NGINX_PORT;/g\" /usr/local/nginx/conf/nginx.conf; \n\
 sed -i \"s/http.server_port=.*$/http.server_port=\$NGINX_PORT/g\" /etc/fdfs/storage.conf; \n\
