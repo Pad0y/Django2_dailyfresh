@@ -58,13 +58,14 @@ OS: windows 10
 ## 数据库表分析图
 ![数据库表分析图](docs/mdImages/db_design.png)
 
-# 环境配置
+# 依赖环境和疑难解答
 - [FDFS配合Nginx的安装](docs/FastDFS-description.md)
 - [python3与fdfs交互踩坑记录](docs/py3fdfs.md)
 - [windows上celery4.x不兼容问题完美解决办法](docs/celery_on_win10.md)
 - [jieba分词设置修改](docs/jieba.md)
 - [支付宝sdk接入](https://github.com/fzlee/alipay/blob/master/README.zh-hans.md)
 - [django1.x和2.x的不同之处](docs/diff.md)
+
 # 项目部署（开发环境）
 - 依赖库安装
 ```text
@@ -85,7 +86,14 @@ $ celery -A celery_tasks.tasks worker --loglevel=info -P eventlet
 ```
 
 # 启动FastDFS服务, 启动nginx
-fdfs的安装方式详见[这里](docs/FastDFS-description.md)
+fdfs的安装方式有两种：
+- 1.[手动编译安装， 详见此处](docs/FastDFS-description.md)，
+- 2.以docker方式运行
+
+FDFS的安装配置是一件比较麻烦的事情，因此提供FDFS的Dockerfile，
+执行`docker build -t docker/fdfs .`
+两种方法选择一种即可，建议docker搭建FDFS方便快捷！
+FDFS环境准备好之后执行如下命令（本地环境安装），docker方式启动无需执行此步骤。
 ```shell script
 $ /usr/bin/fdfs_trackerd /etc/fdfs/tracker.conf start
 $ /usr/bin/fdfs_storaged /etc/fdfs/storage.conf start
