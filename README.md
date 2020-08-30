@@ -91,15 +91,17 @@ fdfs的安装方式有两种：
 - 2.以docker方式运行
 
 FDFS的安装配置是一件比较麻烦的事情，因此提供FDFS的Dockerfile，
-执行`docker build -t docker/fdfs .`
+首先把Dockerfile_FDFS 放到一个`空目录`中执行如下命令,不然会把项目一起打包到docker上
+`docker build -t django/fdfs:v1 -f Dockerfile_FDFS .`
 然后执行
 ```docker
-docker run -d djang/fdfs \
+docker run -d --name \
     -p 8888:8888 \
     -p 22122:22122 \
     -e TZ=Asia/Shanghai \
-    -v /data/fdfs:/var/local/fdfs \
-    --restart=always
+    -v /mnt/fdfs:/var/local/fdfs \
+    --restart=always \
+    django/fdfs:v1
 ```
 两种方法选择一种即可，建议docker搭建FDFS方便快捷！
 FDFS环境准备好之后执行如下命令（本地环境安装），docker方式启动无需执行此步骤。

@@ -28,15 +28,6 @@ class FDFSStorage(Storage):
         trackers = get_tracker_conf(self.client_conf)
         client = Fdfs_client(trackers)
         res = client.upload_appender_by_buffer(content.read())
-
-        # dict {
-        #             'Group name'      : group_name,
-        #             'Remote file_id'  : remote_file_id,
-        #             'Status'          : 'Upload successed.',
-        #             'Local file name' : local_file_name,
-        #             'Uploaded size'   : upload_size,
-        #             'Storage IP'      : storage_ip
-        # }
         if res.get('Status') != 'Upload successed.':
             # 上传失败
             raise Exception('上传文件失败')

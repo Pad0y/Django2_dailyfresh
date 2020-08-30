@@ -101,7 +101,7 @@ base_path=/opt/fdfs-basepath/storage
 
 # store_path#, based 0, if store_path0 not exists, it's value is base_path
 # the paths must be exist
-store_path0=opt/fdfs-basepath/storage
+store_path0=/opt/fdfs-basepath/storage
 
 # tracker服务器，虽然是同一台机器上，但是不能写127.0.0.1。这项配置可以出现一次或多次
 tracker_server=191.8.1.77:22122
@@ -139,7 +139,7 @@ group_name=group1
 
 # store_path#, based 0, if store_path0 not exists, it's value is base_path
 # the paths must be exist
-# must same as storage.conf------>必须和storage.conf一样
+# must same as storage.conf
 store_path0=/opt/fdfs-basepath/storage
 #store_path1=/home/yuqing/fastdfs1
 ```
