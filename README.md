@@ -100,8 +100,7 @@ docker run -d --name \
     -p 22122:22122 \
     -e TZ=Asia/Shanghai \
     -v /mnt/fdfs:/var/local/fdfs \
-    --restart=always \
-    django/fdfs:v1
+    --restart=always django/fdfs:v1
 ```
 两种方法选择一种即可，建议docker搭建FDFS方便快捷！
 FDFS环境准备好之后执行如下命令（本地环境安装），docker方式启动无需执行此步骤。

@@ -1,6 +1,6 @@
 FROM alpine:3.7
 
-LABEL Pad0y <github.com/Pad0y>
+LABEL Pad0y=<github.com/Pad0y>
 
 # set env
 ENV HOME=/root/fastdfs \
