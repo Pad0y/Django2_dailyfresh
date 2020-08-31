@@ -150,6 +150,8 @@ python manage.py migrate
 ```
 # 创建超级管理员
 python manage.py createsuperuser
+# 缓存表
+python manage.py createcachetable
 # 启动服务
 python manage.py runserver
 ```
