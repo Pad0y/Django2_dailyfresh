@@ -95,7 +95,7 @@ FDFS的安装配置是一件比较麻烦的事情，因此提供FDFS的Dockerfil
 `docker build -t django/fdfs:v1 -f Dockerfile_FDFS .`
 然后执行
 ```docker
-docker run -d --name \
+docker run -d --name fdfs\
     -p 8888:8888 \
     -p 22122:22122 \
     -e TZ=Asia/Shanghai \

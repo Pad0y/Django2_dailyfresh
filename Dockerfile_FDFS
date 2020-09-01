@@ -1,13 +1,14 @@
 FROM alpine:3.7
 
-LABEL Pad0y=<github.com/Pad0y>
+LABEL author="Pad0y" github="github.com/pad0y"
 
 # set env
 ENV HOME=/root/fastdfs \
     NGINX_VERSION=1.17.0 \
     NGINX_PORT=8888 \
-    NET_VAR=eth0 \
-    FDFS_PORT=22122
+#    NET_VAR=eth0 \
+    FDFS_PORT=22122 \
+    HOST_IP=106.55.63.180
 
 # update repositories
 RUN mkdir -p ${HOME} && \
@@ -95,19 +96,16 @@ http {\n\
     }\n\
 }">/usr/local/nginx/conf/nginx.conf
 
-# 清理临时软件和文件
+# clean up temp and unuseless softwares
 RUN rm -rf ${HOME}/*
 RUN apk del .mybuilds
 RUN apk add bash pcre-dev zlib-dev
 
-# 创建启动脚本
+# create start.sh shell script
 RUN echo -e "mkdir -p /var/local/fdfs/storage/data /var/local/fdfs/tracker; \n\
 ln -s /var/local/fdfs/storage/data/ /var/local/fdfs/storage/data/M00; \n\n\
 sed -i \"s/listen\ .*$/listen\ \$NGINX_PORT;/g\" /usr/local/nginx/conf/nginx.conf; \n\
 sed -i \"s/http.server_port=.*$/http.server_port=\$NGINX_PORT/g\" /etc/fdfs/storage.conf; \n\
-if [ \"\$HOST_IP\" = \"\" ]; then \n\
-    HOST_IP=\$(ifconfig \$NET_VAR | grep \"inet\" | grep -v \"inet6\" | awk '{print \$2}' | awk -F: '{print \$2}')\n\
-fi \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$HOST_IP:\$FDFS_PORT/g\" /etc/fdfs/storage.conf; \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$HOST_IP:\$FDFS_PORT/g\" /etc/fdfs/client.conf; \n\
 sed -i \"s/^tracker_server=.*$/tracker_server=\$HOST_IP:\$FDFS_PORT/g\" /etc/fdfs/mod_fastdfs.conf; \n\
@@ -117,7 +115,7 @@ sed -i \"s/^tracker_server=.*$/tracker_server=\$HOST_IP:\$FDFS_PORT/g\" /etc/fdf
 tail -f /usr/local/nginx/logs/access.log">/start.sh \
 && chmod u+x /start.sh
 
-# 暴露端口
+# expose ports
 EXPOSE ${NGINX_PORT} ${FDFS_PORT}
 
 ENTRYPOINT ["/bin/bash","/start.sh"]

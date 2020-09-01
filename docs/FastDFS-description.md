@@ -143,11 +143,11 @@ group_name=group1
 store_path0=/opt/fdfs-basepath/storage
 #store_path1=/home/yuqing/fastdfs1
 ```
-- 配置过程中有几点要注意：
+- 配置过程中有几点要注意：tracker_server
     - 确保配置中用到的目录已经创建了
-    - 确保各种配置文件之间引用的端口一直。比如：
-        - mod_fastdfs.conf文件中tracker_server的端口应该跟tracker.conf中port一致；
-        - mod_fastdfs.conf文件中storage_server_port的端口应该跟跟storage.conf中port一致；
+    - 确保各种配置文件之间引用的端口一致。比如：
+        - mod_fastdfs.conf文件中tracker_server的端口应跟tracker.conf中port一致；
+        - mod_fastdfs.conf文件中storage_server_port的端口应跟storage.conf中port一致；
 ---
 
 # 启动tracker和storage：
