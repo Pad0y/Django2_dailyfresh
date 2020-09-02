@@ -92,19 +92,20 @@ fdfs的安装方式有两种：
 
 FDFS的安装配置是一件比较麻烦的事情，因此提供FDFS的Dockerfile，
 首先把Dockerfile_FDFS 放到一个`空目录`中执行如下命令,不然会把项目一起打包到docker上
-`docker build -t pad0y/fdfs:v2 -f Dockerfile_FDFS .`
+`docker build -t pad0y/fdfs:v3 -f Dockerfile_FDFS .`
 然后执行
 ```docker
 # 当storage和tracker在同宿主机时，必须使用host模式，否则文件上传返回storage内部地址，外部访问无法使用
+# MASTER_IP是服务器ip
 docker run -d --name fdfs\
-    --network=host \
     -p 8888:8888 \
     -p 22122:22122 \
     -p 23000:23000 \
     -e TZ=Asia/Shanghai \
     -e NET_VAR=eth0 \
+    -e MASTER_IP=YOUR SERVER IP\
     -v /mnt/fdfs:/var/local/fdfs \
-    pad0y/fdfs:v2
+    pad0y/fdfs:v3
 ```
 两种方法选择一种即可，建议docker搭建FDFS方便快捷！
 FDFS环境准备好之后执行如下命令（本地环境安装），docker方式启动无需执行此步骤。

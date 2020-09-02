@@ -8,7 +8,7 @@ ENV HOME=/root \
     NGINX_PORT=8888 \
     NET_VAR=eth0 \
     FDFS_PORT=22122 \
-    MASTER_IP = 106.55.63.180
+    MASTER_IP=0.0.0.0
 
 # update repositories
 RUN mkdir -p ${HOME} && \
