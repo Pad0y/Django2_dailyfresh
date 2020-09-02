@@ -74,7 +74,7 @@ pip install -r requirements.txt
 ```
 - mysql数据库创建
 ```mysql
-CREATE DATABASE `dailyfresh` CHARACTER SET 'utf8';
+CREATE DATABASE `dailyfresh` CHARACTER SET 'utf8mb4';
 ```
 - 启动项目所需服务(win10)
 ```shell script
@@ -107,6 +107,8 @@ docker run -d --name fdfs\
     -v /mnt/fdfs:/var/local/fdfs \
     pad0y/fdfs:v3
 ```
+修改`utils/fdfs/client_deploy.conf` tracker_server字段为自己服务器的ip
+
 两种方法选择一种即可，建议docker搭建FDFS方便快捷！
 FDFS环境准备好之后执行如下命令（本地环境安装），docker方式启动无需执行此步骤。
 ```shell script
