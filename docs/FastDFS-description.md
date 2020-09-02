@@ -55,7 +55,7 @@ $ ./make.sh install
 安装好后，程序是在/usr/bin目录下：
 ```shell script
 $ which fdfs_trackerd
-$ which fdfs_storage
+$ which fdfs_storaged
 ```
 得到如下结果：/usr/bin/fdfs_trackerd,说明安装成功
 配置文件是在/etc/fdfs目录下：
