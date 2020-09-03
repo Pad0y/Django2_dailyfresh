@@ -101,7 +101,7 @@ docker pull pad0y/fdfs:v3
 然后执行
 ```docker
 # 当storage和tracker在同宿主机时，必须使用host模式，否则文件上传返回storage内部地址，外部访问无法使用
-# MASTER_IP是服务器ip
+# MASTER_IP填写自己服务器的ip
 docker run -d --name fdfs\
     -p 8888:8888 \
     -p 22122:22122 \
