@@ -12,7 +12,7 @@ ENV HOME=/root \
 
 # update repositories
 RUN mkdir -p ${HOME} && \
-    echo -e "http://mirrors.aliyun.com/alpine/v3.7/main\nhttp://mirrors.aliyun.com/alpine/v3.7/community" > /etc/apk/repositories && \
+    echo -e "http://mirrors.aliyun.com/alpine/v3.7/main\nhttp://mirrors.aliyun.com/alpine/v3.7/community">/etc/apk/repositories && \
     apk update
 
 # download dependency library
