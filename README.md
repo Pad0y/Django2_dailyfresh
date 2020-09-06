@@ -92,7 +92,7 @@ fdfs的安装方式有两种：
 
 FDFS的安装配置是一件比较麻烦的事情，因此提供FDFS的Dockerfile，
 首先把Dockerfile_FDFS 放到一个`空目录`中执行如下命令,不然会把项目一起打包到docker上
-`docker build -t pad0y/fdfs:v3 -f Dockerfile_FDFS .` 或者
+`docker build -t pad0y/fdfs:v3 -f FDFS.dockerfile .` 或者
 [直接下载](https://hub.docker.com/r/pad0y/fdfs)
 ，自行构建还是直接拉镜像二选一即可。
 ```bash
