@@ -16,7 +16,7 @@ cd $bin
 /usr/bin/mkdir -p /etc/nginx/data/run
 /usr/sbin/nginx
 #gunicorn -c /data/config/server.ini server:app
-python manage.py collectstatic --noinput
-python manage.py makemigrations
-python manage.py migrate
+python3 manage.py collectstatic --noinput
+python3 manage.py makemigrations
+python3 manage.py migrate
 uwsgi --ini ./uwsgi.ini
