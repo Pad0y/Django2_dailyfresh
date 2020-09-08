@@ -28,5 +28,7 @@ services:
       - backend
 
   web:
+    build: project.dockerfile
+
 
 
