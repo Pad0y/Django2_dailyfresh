@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 
 services:
   redis:
@@ -15,10 +15,10 @@ services:
     ports:
       - '3306'
     environment:
-      - MYSQL_USER: root
-      - MYSQL_ROOT_PASSWORD: 546926936
-      - MYSQL_PASSWORD: 546926936
-      - MYSQL_DATABASE: dailyfresh
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 546926936
+      MYSQL_PASSWORD: 546926936
+      MYSQL_DATABASE: dailyfresh
     command:
       --character-set-server=utf8mb4
       --explicit_defaults_for_timestamp=true
@@ -28,8 +28,9 @@ services:
       - backend
 
   fdfs:
-    context: ../
-    dockerfile: compose/FDFS.dockerfile
+    build:
+      context: ../
+      dockerfile: compose/FDFS.dockerfile
     ports:
       - "8888:8888"
       - "22122:22122"
@@ -40,10 +41,13 @@ services:
       - backend
 
   web:
-    context: ../
-    dockerfile: compose/project.dockerfile
+    build:
+      context: ../
+      dockerfile: compose/project.dockerfile
     ports:
       - "8001:80"
+    volumes:
+      - /mnt/dailyfresh/logs:/var/log/nginx/
     networks:
       - backend
     depends_on:
