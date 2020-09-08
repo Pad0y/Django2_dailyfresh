@@ -21,7 +21,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
     && apt-get update
 
 # update sqlite3
-RUN cd ./resource \
+RUN cd resource \
     && tar zxvf sqlite-autoconf-3300100.tar.gz \
     && cd sqlite-autoconf-3300100 && ./configure --prefix=/usr/local \
     && make && make install && make clean \

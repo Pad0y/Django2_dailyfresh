@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
   bin="$( cd -P "$( dirname "$SOURCE" )" && pwd )"

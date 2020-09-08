@@ -27,8 +27,34 @@ services:
     networks:
       - backend
 
+  fdfs:
+    context: ../
+    dockerfile: compose/FDFS.dockerfile
+    ports:
+      - "8888:8888"
+      - "22122:22122"
+      - "23000:23000"
+    volumes:
+      - /mnt/dailyfresh/fdfs_data:/var/local/fdfs
+    networks:
+      - backend
+
   web:
-    build: project.dockerfile
+    context: ../
+    dockerfile: compose/project.dockerfile
+    ports:
+      - "8001:80"
+    networks:
+      - backend
+    depends_on:
+      - db
+      - redis
+      - fdfs
+
+networks:
+  backend:
+
+
 
 
 
