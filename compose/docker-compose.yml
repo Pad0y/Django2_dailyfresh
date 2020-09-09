@@ -5,58 +5,46 @@ services:
     image: redis:alpine
     container_name: redis-server
     ports:
-      - '6379'
-    networks:
-      - backend
+      - "6379:6379"
 
   db:
     image: mysql:5.7
     container_name: mysql-server
     ports:
-      - '3306'
+      - '3306:3306'
     environment:
-      MYSQL_USER: root
-      MYSQL_ROOT_PASSWORD: 546926936
-      MYSQL_PASSWORD: 546926936
-      MYSQL_DATABASE: dailyfresh
-    command:
-      --character-set-server=utf8mb4
-      --explicit_defaults_for_timestamp=true
-    volumes:
-      - /mnt/dailyfresh/db_data:/var/lib/mysql:rw
-    networks:
-      - backend
+      - MYSQL_ROOT_PASSWORD=546926936
+      - MYSQL_DATABASE=dailyfresh
+#    command:
+#      --character-set-server=utf8mb4
+#      --explicit_defaults_for_timestamp=true
 
   fdfs:
-    build:
-      context: ../
-      dockerfile: compose/FDFS.dockerfile
+    image: pad0y/fdfs:v3
     ports:
       - "8888:8888"
       - "22122:22122"
       - "23000:23000"
-    volumes:
-      - /mnt/dailyfresh/fdfs_data:/var/local/fdfs
-    networks:
-      - backend
 
   web:
-    build:
-      context: ../
-      dockerfile: compose/project.dockerfile
+    image: pad0y/web:v2
+    container_name: django_backend
     ports:
       - "8001:80"
     volumes:
-      - /mnt/dailyfresh/logs:/var/log/nginx/
-    networks:
-      - backend
+      - /mnt/dailyfresh/logs:/data/logs
+      - /mnt/dailyfresh/config:/data/config
+      - /mnt/dailyfresh/compose:/data/compose
+      - /etc/localtime:/etc/localtime
+#    command: "/bin/bash start.sh"
     depends_on:
       - db
       - redis
       - fdfs
-
-networks:
-  backend:
+    links:
+      - db
+      - redis
+      - fdfs
 
 
 
