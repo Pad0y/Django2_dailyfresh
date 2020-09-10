@@ -15,9 +15,14 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=546926936
       - MYSQL_DATABASE=dailyfresh
-#    command:
-#      --character-set-server=utf8mb4
-#      --explicit_defaults_for_timestamp=true
+#    healthcheck:
+#      test: ["CMD","curl","-f","http://localhost:3306", "||", "exit", "1"]
+#      interval: 10s
+#      timeout: 10s
+#      retries: 2
+    command:
+      --character-set-server=utf8mb4
+      --explicit_defaults_for_timestamp=true
 
   fdfs:
     image: pad0y/fdfs:v3
@@ -25,17 +30,27 @@ services:
       - "8888:8888"
       - "22122:22122"
       - "23000:23000"
-
+    environment:
+      - MASTER_IP=106.55.63.180
   web:
     image: pad0y/web:v2
+#    build:
+#      context: ..
+#      dockerfile: project.dockerfile
     container_name: django_backend
+    stdin_open: true
+    tty: true
+    entrypoint: ["bash"]
     ports:
       - "8001:80"
+#    command: "/bin/bash"
     volumes:
-      - /mnt/dailyfresh/logs:/data/logs
-      - /mnt/dailyfresh/config:/data/config
-      - /mnt/dailyfresh/compose:/data/compose
+#      - /mnt/dailyfresh/compose:/data/compose
       - /etc/localtime:/etc/localtime
+      - /mnt/dailyfresh/logs:/var/log/nginx
+      - ..:/data/project
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
 #    command: "/bin/bash start.sh"
     depends_on:
       - db

@@ -1,10 +1,11 @@
+setuptools-scm
+wheel
 amqp==2.5.1
 billiard==3.6.1.0
 celery==4.3.0
 certifi==2019.9.11
 chardet==3.0.4
-Django==2.2.13
-django-haystack==2.8.1
+django-haystack
 django-redis==4.10.0
 django-redis-sessions==0.6.1
 django-tinymce==2.7.1
