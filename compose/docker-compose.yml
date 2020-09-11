@@ -6,8 +6,8 @@ services:
     container_name: redis-server
     volumes:
       - /etc/localtime:/etc/localtime
-    ports:
-      - "6379:6379"
+    expose:
+      - "6379"
 
   db:
     image: mysql:5.7
@@ -33,34 +33,33 @@ services:
     environment:
       - MASTER_IP=106.55.63.180
   web:
-    image: pad0y/web:v2
-#    build:
-#      context: ..
-#      dockerfile: project.dockerfile
+#    image: pad0y/web:v2
+    build:
+      context: ..
+      dockerfile: project.dockerfile
     container_name: django_backend
 #    stdin_open: true
 #    tty: true
 #    entrypoint: ["bash"]
     ports:
       - "8001:80"
+      - "8888:8888"
 #    command: "/bin/bash"
     volumes:
-#      - /mnt/dailyfresh/compose:/data/compose
       - /etc/localtime:/etc/localtime
-#      - /mnt/dailyfresh/logs:/var/log/nginx
       - ..:/data/project
       - ./default.conf:/etc/nginx/conf.d/default.conf
-#      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - ../logs:/var/log/nginx/
 #    command: "/bin/bash start.sh"
     depends_on:
       - db
       - redis
       - fdfs
-    links:
-      - db
-      - redis
-      - fdfs
+#    links:
+#      - db
+#      - redis
+#      - fdfs
 
 
 
