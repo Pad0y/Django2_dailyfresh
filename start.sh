@@ -1,21 +1,34 @@
 #!/bin/bash
-#
-#SOURCE="${BASH_SOURCE[0]}"
-#while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-#  bin="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-#  SOURCE="$(readlink "$SOURCE")"
-#  [[ $SOURCE != /* ]] && SOURCE="$bin/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
-#done
-#bin="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-#
-##source ~/.bash_profile
-#export LANG=en_US.UTF8
-#cd $bin
 
-/usr/sbin/nginx
-python3 manage.py collectstatic --noinput&&
-/usr/sbin/nginx -s reload&&
-python3 manage.py makemigrations&&
-python3 manage.py migrate&&
-python3 manage.py createcachetable&&
-uwsgi --ini uwsgi.ini
+#set -o errexit
+#set -o pipefail
+#
+#
+#
+#function mysql_ready(){
+#python3 << END
+#import sys
+#import pymysql
+#try:
+#    conn = pymysql.connect(host="db", port=3306, user="root", passwd="$MYSQL_ROOT_PASSWORD", db='$MYSQL_DATABASE', charset='utf8')
+#except pymysql.err.OperationalError:
+#    sys.exit(-1)
+#sys.exit(0)
+#END
+#}
+#
+#until mysql_ready; do
+#  >&2 echo "MySQL is unavailable - sleeping"
+#  sleep 1
+#done
+#
+#>&2 echo "MySQL is up - continuing..."
+
+/usr/sbin/nginx;
+python3 manage.py collectstatic --noinput;
+/usr/sbin/nginx -s reload;
+python3 manage.py makemigrations;
+python3 manage.py migrate;
+python3 manage.py createcachetable;
+uwsgi --ini uwsgi.ini;
+tail -100f /var/log/nginx/access.log;

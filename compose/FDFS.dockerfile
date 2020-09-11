@@ -9,7 +9,7 @@ ENV HOME=/root \
     NET_VAR=eth0 \
     FDFS_PORT=22122 \
     MASTER_IP=0.0.0.0
-
+    
 # update repositories
 RUN mkdir -p ${HOME} && \
     echo -e "http://mirrors.aliyun.com/alpine/v3.7/main\nhttp://mirrors.aliyun.com/alpine/v3.7/community">/etc/apk/repositories && \

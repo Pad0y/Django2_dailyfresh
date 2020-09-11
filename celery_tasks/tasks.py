@@ -1,7 +1,6 @@
 from celery import Celery
 from django.conf import settings
 from django.core.mail import send_mail
-from django.shortcuts import render
 from django.template import loader, RequestContext
 import os
 

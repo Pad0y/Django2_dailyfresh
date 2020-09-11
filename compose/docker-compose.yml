@@ -4,6 +4,8 @@ services:
   redis:
     image: redis:alpine
     container_name: redis-server
+    volumes:
+      - /etc/localtime:/etc/localtime
     ports:
       - "6379:6379"
 
@@ -15,19 +17,17 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=546926936
       - MYSQL_DATABASE=dailyfresh
-#    healthcheck:
-#      test: ["CMD","curl","-f","http://localhost:3306", "||", "exit", "1"]
-#      interval: 10s
-#      timeout: 10s
-#      retries: 2
     command:
       --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
       --explicit_defaults_for_timestamp=true
+    volumes:
+      - /etc/localtime:/etc/localtime
 
   fdfs:
     image: pad0y/fdfs:v3
     ports:
-      - "8888:8888"
+#      - "8888:8888"
       - "22122:22122"
       - "23000:23000"
     environment:
@@ -38,19 +38,20 @@ services:
 #      context: ..
 #      dockerfile: project.dockerfile
     container_name: django_backend
-    stdin_open: true
-    tty: true
-    entrypoint: ["bash"]
+#    stdin_open: true
+#    tty: true
+#    entrypoint: ["bash"]
     ports:
       - "8001:80"
 #    command: "/bin/bash"
     volumes:
 #      - /mnt/dailyfresh/compose:/data/compose
       - /etc/localtime:/etc/localtime
-      - /mnt/dailyfresh/logs:/var/log/nginx
+#      - /mnt/dailyfresh/logs:/var/log/nginx
       - ..:/data/project
       - ./default.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx.conf:/etc/nginx/nginx.conf
+#      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ../logs:/var/log/nginx/
 #    command: "/bin/bash start.sh"
     depends_on:
       - db
