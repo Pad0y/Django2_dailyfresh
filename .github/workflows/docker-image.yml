@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Build the Docker image
-      run: docker build . --file FDFS_dockerfile --tag pad0y/fdfs:$(date +%s)
+      run: docker build . --file Dockerfile_FDFS --tag pad0y/fdfs:$(date +%s)
