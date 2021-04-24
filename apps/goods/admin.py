@@ -8,10 +8,11 @@ class BaseModelAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
         # 发出任务，让celery worker重新生成首页静态页面
         from celery_tasks.tasks import generate_static_index_html
+
         generate_static_index_html.delay()
 
         # 清除缓存
-        cache.delete('index_page_data')
+        cache.delete("index_page_data")
 
     def delete_model(self, request, obj):
         """
@@ -22,10 +23,11 @@ class BaseModelAdmin(admin.ModelAdmin):
         """
         super().delete_model(request, obj)
         from celery_tasks.tasks import generate_static_index_html
+
         generate_static_index_html.delay()
 
         # 清除缓存
-        cache.delete('index_page_data')
+        cache.delete("index_page_data")
 
 
 @admin.register(Goods)
@@ -56,6 +58,7 @@ class IndexTypeGoodsBannerAdmin(BaseModelAdmin):
 @admin.register(IndexGoodsBanner)
 class IndexGoodsBannerAdmin(BaseModelAdmin):
     pass
+
 
 # admin.site.register(GoodsType, GoodsTypeAdmin)
 # admin.site.register(IndexTypeGoodsBanner, IndexTypeGoodsBannerAdmin)

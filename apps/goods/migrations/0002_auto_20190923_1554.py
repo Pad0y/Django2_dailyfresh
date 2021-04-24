@@ -6,36 +6,36 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('goods', '0001_initial'),
+        ("goods", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='goods',
-            options={'verbose_name': '商品SPU', 'verbose_name_plural': '商品SPU'},
+            name="goods",
+            options={"verbose_name": "商品SPU", "verbose_name_plural": "商品SPU"},
         ),
         migrations.AlterModelOptions(
-            name='goodsimage',
-            options={'verbose_name': '商品图片', 'verbose_name_plural': '商品图片'},
+            name="goodsimage",
+            options={"verbose_name": "商品图片", "verbose_name_plural": "商品图片"},
         ),
         migrations.AlterModelOptions(
-            name='goodssku',
-            options={'verbose_name': '商品', 'verbose_name_plural': '商品'},
+            name="goodssku",
+            options={"verbose_name": "商品", "verbose_name_plural": "商品"},
         ),
         migrations.AlterModelOptions(
-            name='goodstype',
-            options={'verbose_name': '商品种类', 'verbose_name_plural': '商品种类'},
+            name="goodstype",
+            options={"verbose_name": "商品种类", "verbose_name_plural": "商品种类"},
         ),
         migrations.AlterModelOptions(
-            name='indexgoodsbanner',
-            options={'verbose_name': '首页轮播商品', 'verbose_name_plural': '首页轮播商品'},
+            name="indexgoodsbanner",
+            options={"verbose_name": "首页轮播商品", "verbose_name_plural": "首页轮播商品"},
         ),
         migrations.AlterModelOptions(
-            name='indexpromotionbanner',
-            options={'verbose_name': '主页促销活动', 'verbose_name_plural': '主页促销活动'},
+            name="indexpromotionbanner",
+            options={"verbose_name": "主页促销活动", "verbose_name_plural": "主页促销活动"},
         ),
         migrations.AlterModelOptions(
-            name='indextypegoodsbanner',
-            options={'verbose_name': '主页分类展示商品', 'verbose_name_plural': '主页分类展示商品'},
+            name="indextypegoodsbanner",
+            options={"verbose_name": "主页分类展示商品", "verbose_name_plural": "主页分类展示商品"},
         ),
     ]

@@ -7,18 +7,26 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('goods', '0002_auto_20190923_1554'),
+        ("goods", "0002_auto_20190923_1554"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='goodssku',
-            name='goods',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='goods.Goods', verbose_name='商品SPU'),
+            model_name="goodssku",
+            name="goods",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="goods.Goods",
+                verbose_name="商品SPU",
+            ),
         ),
         migrations.AlterField(
-            model_name='goodssku',
-            name='type',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='goods.GoodsType', verbose_name='商品种类'),
+            model_name="goodssku",
+            name="type",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="goods.GoodsType",
+                verbose_name="商品种类",
+            ),
         ),
     ]

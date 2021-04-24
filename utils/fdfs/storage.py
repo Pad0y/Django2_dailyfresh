@@ -15,7 +15,7 @@ class FDFSStorage(Storage):
             domain = settings.FDFS_STORAGE_URL
         self.domain = domain
 
-    def _open(self, name, mode='rb'):
+    def _open(self, name, mode="rb"):
         pass
 
     def _save(self, name, content):
@@ -28,10 +28,10 @@ class FDFSStorage(Storage):
         trackers = get_tracker_conf(self.client_conf)
         client = Fdfs_client(trackers)
         res = client.upload_appender_by_buffer(content.read())
-        if res.get('Status') != 'Upload successed.':
+        if res.get("Status") != "Upload successed.":
             # 上传失败
-            raise Exception('上传文件失败')
-        filename = res.get('Remote file_id')
+            raise Exception("上传文件失败")
+        filename = res.get("Remote file_id")
         return filename.decode()
 
     def exists(self, name):
