@@ -9,7 +9,7 @@ django-redis==4.10.0
 django-redis-sessions==0.6.1
 django-tinymce==2.7.1
 dnspython==1.16.0
-eventlet==0.25.1
+eventlet==0.31.0
 greenlet==0.4.15
 idna==2.8
 importlib-metadata==0.23
