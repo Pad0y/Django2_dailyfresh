@@ -26,11 +26,11 @@ PyMySQL==0.9.3
 python-alipay-sdk==1.10.1
 pytz==2019.2
 redis==3.3.8
-requests==2.22.0
+requests
 simpleui==3.9
 six==1.12.0
 sqlparse==0.3.0
-urllib3==1.26.5
+urllib3
 vine==1.3.0
 Whoosh==2.7.4
 zipp==0.6.0
