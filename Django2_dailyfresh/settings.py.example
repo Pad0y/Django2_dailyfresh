@@ -180,7 +180,7 @@ DEFAULT_FILE_STORAGE = 'utils.fdfs.storage.FDFSStorage'
 FDFS_CLIENT_CONF = os.path.join(BASE_DIR, 'utils/fdfs/client_deploy.conf')
 # Set IP:port
 
-FDFS_STORAGE_URL = 'http://ip:port'  # fdfs服务器的ip和端口，注意端口是nginx的端口
+FDFS_STORAGE_URL = 'http://ip:port/'  # fdfs服务器的ip和端口，注意端口是nginx的端口
 
 # haystack configure
 HAYSTACK_CONNECTIONS = {
