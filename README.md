@@ -1,7 +1,7 @@
 [![](https://img.shields.io/badge/ICU-996-blueviolet.svg)](https://github.com/Pad0y)
 [![](https://img.shields.io/badge/language-python-red.svg)](https://github.com/Pad0y)
 [![CSDN](https://img.shields.io/badge/CSDN-Pad0y-yellow.svg)](https://blog.csdn.net/qq_34356800)
-[![Build Status](https://www.travis-ci.org/Pad0y/Django2_dailyfresh.svg?branch=master)](https://www.travis-ci.org/Pad0y/Django2_dailyfresh)
+[![Build Status](https://www.travis-ci.com/Pad0y/Django2_dailyfresh.svg?branch=master)](https://www.travis-ci.org/Pad0y/Django2_dailyfresh)
 ![Finish](https://img.shields.io/badge/Finish-true-green)
 ---
 # 天天生鲜-django2.2版本
