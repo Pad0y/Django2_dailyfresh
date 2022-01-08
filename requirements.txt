@@ -7,7 +7,7 @@ Django==2.2.24
 django-haystack==2.8.1
 django-redis==4.10.0
 django-redis-sessions==0.6.1
-django-tinymce==2.7.1
+django-tinymce==3.4.0
 dnspython==1.16.0
 eventlet==0.31.0
 greenlet==0.4.15
