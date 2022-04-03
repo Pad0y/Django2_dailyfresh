@@ -25,13 +25,11 @@ class ChineseTokenizer(Tokenizer):
 def ChineseAnalyzer():
     return ChineseTokenizer()
 ```
-- 复制whoosh_backend.py文件修改为whoosh_cn_backend.py
-- 修whoosh_cn_backend.py改两处地方，导入刚刚新建的文件，替换检索函数
+- 修whoosh_backend.py改两处地方，导入刚刚新建的文件，替换检索函数
 ```text
 from .ChineseAnalyzer import ChineseAnalyzer
-```
-```text
-查找
+
+替换
 analyzer=StemmingAnalyzer()
 改为
 analyzer=ChineseAnalyzer()
