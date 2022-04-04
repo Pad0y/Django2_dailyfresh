@@ -6,9 +6,9 @@ import sys
 
 def main():
     if os.name == 'nt':
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings.settings_prod')
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django2_dailyfresh.settings_dev')
     else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Django2_dailyfresh.settings_dev")
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Django2_dailyfresh.settings_prod")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

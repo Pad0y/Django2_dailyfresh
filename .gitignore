@@ -182,7 +182,7 @@ dmypy.json
 .pyre/
 
 # custom
-Django2_dailyfresh/settings.py
+Django2_dailyfresh/settings_dev.py
 utils/fdfs/client_deploy.conf
 .idea/
 apps/order/alipay_public_key.pem

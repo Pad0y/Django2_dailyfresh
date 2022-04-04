@@ -8,7 +8,10 @@ import os
 # broker和worker在同一台机子上则需要加上本段代码
 import django
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Django2_dailyfresh.settings")
+if os.name == 'nt':
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'Django2_dailyfresh.settings_dev')
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "Django2_dailyfresh.settings_prod")
 django.setup()
 
 from goods.models import *
@@ -23,10 +26,10 @@ def send_register_active_email(to_email, username, token):
     subject = "天天生鲜欢迎信息"
     message = ""
     html_message = (
-        "<h1>%s, 欢迎成为天天生鲜注册会员<h1>"
-        "请点击下面链接激活账户<br/>"
-        '<a href="http://127.0.0.1:8000/user/active/%s">'
-        "http://127.0.0.1:8000/user/active/%s</a>" % (username, token, token)
+            "<h1>%s, 欢迎成为天天生鲜注册会员<h1>"
+            "请点击下面链接激活账户<br/>"
+            '<a href="http://127.0.0.1:8000/user/active/%s">'
+            "http://127.0.0.1:8000/user/active/%s</a>" % (username, token, token)
     )
     sender = settings.EMAIL_FROM
     receiver = [to_email]
