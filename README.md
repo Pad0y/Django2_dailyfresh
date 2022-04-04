@@ -1,6 +1,6 @@
 # 快速开始指导
 
-[![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Pad0y/Django2_dailyfresh/blob/master/LICENSE)[![version](https://img.shields.io/badge/python-v3.6%2B-blue)](https://github.com/Pad0y/Django2_dailyfresh)[![CSDN](https://img.shields.io/badge/CSDN-Pad0y-blueviolet.svg)](https://blog.csdn.net/qq_34356800)![Finish](https://img.shields.io/badge/Finish-True-brightgreen)
+[![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Pad0y/Django2_dailyfresh/blob/master/LICENSE)[![version](https://img.shields.io/badge/python-v3.6%2B-blue)](https://github.com/Pad0y/Django2_dailyfresh)[![CSDN](https://img.shields.io/badge/CSDN-Pad0y-blueviolet.svg)](https://blog.csdn.net/qq_34356800)![Finish](https://img.shields.io/badge/Finish-True-brightgreen)[![Build Status](https://www.travis-ci.com/Pad0y/Django2_dailyfresh.svg?branch=master)](https://www.travis-ci.org/Pad0y/Django2_dailyfresh)
 
 该项目是一个基于`Djaong 2.x`的电商项目，包含了实际开发中的电商项目中大部分的功能开发和知识点实践，是一个非常不错的django入门学习项目，希望对各位的学习有所帮助。
 
@@ -16,7 +16,7 @@
 - 开发环境
 
   ```text
-  Language: Python 3.6+
+  Language: Python>=3.6
   Framework: Django 2.x
   IDE: Pycharm
   OS: windows 10
@@ -60,7 +60,7 @@
 
    ```bash
    # Create a virtual environment with conda
-   conda create -n django python=3.6 --yes
+   conda create -n django python=3.7 --yes
    # Install the dependent libraries
    pip install -U pip
    pip install -r requirements.txt
@@ -71,10 +71,7 @@
 3. 修改配置文件,参照`settings.py.example`
 
    ```python
-   1. 重命名Django2_dailyfresh文件夹下的settings.py.example
-      文件为settings.py
-   
-   2. 修改数据库配置信息
+   1. 修改数据库配置信息
    DATABASES = {
        'default': {
            'ENGINE': 'django.db.backends.mysql',
@@ -86,7 +83,7 @@
        }
    }
    
-   3. 修改邮箱配置信息，163邮箱配置信息自查
+   2. 修改邮箱配置信息，163邮箱配置信息自查
    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
    EMAIL_HOST = 'smtp.qq.com'
    EMAIL_PORT = 25
@@ -95,10 +92,10 @@
    # EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
    EMAIL_FROM = '天天生鲜<XXXXX@qq.com>'  # EMAIL_FROM 和 EMAIL_HOST_USER必须一样
    
-   4. 填写fdfs的配置信息，注意端口是nginx的端口
+   3. 填写fdfs的配置信息，注意端口是nginx的端口
    FDFS_STORAGE_URL = 'http://ip:port/'  
    
-   5. 支付功能不需要用到的保持默认即可，需要用到移步官方文档或看配置文件注释
+   4. 支付功能不需要用到的保持默认即可，需要用到移步官方文档或看配置文件注释
    ```
 
    

@@ -12,10 +12,10 @@ click-plugins==1.1.1
 click-repl==0.2.0
 colorama==0.4.4
 Deprecated==1.2.13
-Django==2.2.26
+Django==2.2.27
 django-haystack==2.8.1
-django-redis==5.2.0
-django-redis-sessions==0.6.2
+django-redis
+django-redis-sessions
 django-simpleui==2022.3.19
 django-tinymce==3.4.0
 dnspython==1.16.0
