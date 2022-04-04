@@ -1,6 +1,6 @@
 # 快速开始指导
 
-[![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Pad0y/Django2_dailyfresh/blob/master/LICENSE)[![version](https://img.shields.io/badge/python-v3.6%2B-blue)](https://github.com/Pad0y/Django2_dailyfresh)[![CSDN](https://img.shields.io/badge/CSDN-Pad0y-blueviolet.svg)](https://blog.csdn.net/qq_34356800)![Finish](https://img.shields.io/badge/Finish-True-brightgreen)[![Build Status](https://www.travis-ci.com/Pad0y/Django2_dailyfresh.svg?branch=master)](https://www.travis-ci.org/Pad0y/Django2_dailyfresh)
+[![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Pad0y/Django2_dailyfresh/blob/master/LICENSE)[![version](https://img.shields.io/badge/python-v3.6%2B-blue)](https://github.com/Pad0y/Django2_dailyfresh)[![CSDN](https://img.shields.io/badge/CSDN-Pad0y-blueviolet.svg)](https://blog.csdn.net/qq_34356800)![Finish](https://img.shields.io/badge/Finish-True-brightgreen)[![Django workflow](https://github.com/Pad0y/Django2_dailyfresh/actions/workflows/django.yml/badge.svg)](https://github.com/Pad0y/Django2_dailyfresh/actions)
 
 该项目是一个基于`Djaong 2.x`的电商项目，包含了实际开发中的电商项目中大部分的功能开发和知识点实践，是一个非常不错的django入门学习项目，希望对各位的学习有所帮助。
 
@@ -68,8 +68,7 @@
 
 2. [修改whoosh backend]((docs/jieba.md))
 
-3. 修改配置文件,参照`settings.py.example`
-
+3. 修改配置文件,参照`settings_prod.py`,在windows上部署测试拷贝配置文件重命名为`settings_dev.py`
    ```python
    1. 修改数据库配置信息
    DATABASES = {
