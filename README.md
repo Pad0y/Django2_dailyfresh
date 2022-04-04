@@ -3,7 +3,7 @@
 [![license](https://img.shields.io/badge/license-MIT-orange)](https://github.com/Pad0y/Django2_dailyfresh/blob/master/LICENSE)[![version](https://img.shields.io/badge/python-v3.6%2B-blue)](https://github.com/Pad0y/Django2_dailyfresh)[![CSDN](https://img.shields.io/badge/CSDN-Pad0y-blueviolet.svg)](https://blog.csdn.net/qq_34356800)![Finish](https://img.shields.io/badge/Finish-True-brightgreen)[![Django workflow](https://github.com/Pad0y/Django2_dailyfresh/actions/workflows/django.yml/badge.svg)](https://github.com/Pad0y/Django2_dailyfresh/actions)
 
 该项目是一个基于`Djaong 2.x`的电商项目，包含了实际开发中的电商项目中大部分的功能开发和知识点实践，是一个非常不错的django入门学习项目，希望对各位的学习有所帮助。
-
+烤地瓜教程配合小破站食用更香,[猛戳此处](https://www.bilibili.com/video/BV1NP4y1T7ja/)
 - 技术点
 
   ```
@@ -66,7 +66,7 @@
    pip install -r requirements.txt
    ```
 
-2. [修改whoosh backend]((docs/jieba.md))
+2. [修改whoosh backend](docs/jieba.md)
 
 3. 修改配置文件,参照`settings_prod.py`,在windows上部署测试拷贝配置文件重命名为`settings_dev.py`
    ```python
@@ -127,9 +127,9 @@
           pad0y/fdfs:v3
       ```
 
-      访问主机8888端口如果看到nginx默认页面则启动成功
+      访问主机8888端口如果看到nginx默认页面则启动成功,修改`utils/fdfs/client_deploy.conf, 填上tracker_server的IP`(公网IP)
 
-   2. 数据库和异步组件
+   3. 数据库和异步组件
 
       ```
       # start service(mysql/redis)
@@ -157,7 +157,7 @@
 
 ## 演示
 
-由于fdfs是用docker创建的没有任何数据,项目启动没有任何图片纯属正常吗,需要自己去后台管理添加
+由于fdfs是用docker创建的没有任何数据,项目启动没有任何图片纯属正常,需要自己去后台管理添加
 
 ![登录页](docs/mdImages/login.png)
 
