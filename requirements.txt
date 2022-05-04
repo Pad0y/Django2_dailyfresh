@@ -12,7 +12,7 @@ click-plugins==1.1.1
 click-repl==0.2.0
 colorama==0.4.4
 Deprecated==1.2.13
-Django==2.2.27
+Django==2.2.28
 django-haystack==2.8.1
 django-redis
 django-redis-sessions
