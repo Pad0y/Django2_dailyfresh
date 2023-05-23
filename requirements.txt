@@ -37,7 +37,7 @@ pyparsing==3.0.7
 python-alipay-sdk==1.10.1
 pytz==2021.3
 redis==4.5.4
-requests==2.27.1
+requests==2.31.0
 simpleui==3.9
 six==1.16.0
 sqlparse==0.4.2
